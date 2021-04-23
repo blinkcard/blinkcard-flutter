@@ -1,4 +1,4 @@
-group 'com.microblink.BlinkCardFlutter'
+group 'com.microblink.blinkcard.flutter'
 version '1.0'
 
 buildscript {
@@ -16,6 +16,7 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'http://maven.microblink.com' }
     }
 }
 
@@ -29,5 +30,11 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation('com.microblink:blinkcard:2.2.0@aar') {
+        transitive = true
     }
 }
