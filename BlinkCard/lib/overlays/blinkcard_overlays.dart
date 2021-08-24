@@ -10,16 +10,16 @@ class BlinkCardOverlaySettings extends OverlaySettings {
     /// String: user instructions that are shown above camera preview while the first side of the
     /// document is being scanned.
     /// If null, default value will be used.
-    String firstSideInstructions;
+    String? firstSideInstructions;
 
     /// String: user instructions that are shown above camera preview while the second side of the
     /// document is being scanned.
     /// If null, default value will be used.
-    String flipCardInstructions;
+    String? flipCardInstructions;
 
     /// Defines whether glare warning will be displayed when user turn on a flashlight
     /// Default true
-    bool showFlashlightWarning;
+    bool showFlashlightWarning = true;
 
     BlinkCardOverlaySettings(): super('BlinkCardOverlaySettings');
 

@@ -9,13 +9,13 @@ part of 'blinkcard_overlays.dart';
 BlinkCardOverlaySettings _$BlinkCardOverlaySettingsFromJson(
     Map<String, dynamic> json) {
   return BlinkCardOverlaySettings()
-    ..overlaySettingsType = json['overlaySettingsType'] as String
+    ..overlaySettingsType = json['overlaySettingsType'] as String?
     ..useFrontCamera = json['useFrontCamera'] as bool
     ..enableBeep = json['enableBeep'] as bool
-    ..language = json['language'] as String
-    ..country = json['country'] as String
-    ..firstSideInstructions = json['firstSideInstructions'] as String
-    ..flipCardInstructions = json['flipCardInstructions'] as String
+    ..language = json['language'] as String?
+    ..country = json['country'] as String?
+    ..firstSideInstructions = json['firstSideInstructions'] as String?
+    ..flipCardInstructions = json['flipCardInstructions'] as String?
     ..showFlashlightWarning = json['showFlashlightWarning'] as bool;
 }
 

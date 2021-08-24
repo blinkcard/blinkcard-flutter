@@ -15,11 +15,11 @@ class Recognizer {
   /// Type of recognizer
   String recognizerType;
 
-  Recognizer(String recognizerType) {
-    this.recognizerType = recognizerType;
-  }
+  Recognizer(this.recognizerType);
 
-  RecognizerResult createResultFromNative(Map<String, dynamic> nativeResult) {}
+  RecognizerResult createResultFromNative(Map<String, dynamic> nativeResult) {
+    return RecognizerResult(nativeResult['resultState']);
+  }
 
   factory Recognizer.fromJson(Map<String, dynamic> json) => _$RecognizerFromJson(json);
 
@@ -45,9 +45,7 @@ class RecognizerResult {
   /// State of the result. It is always one of the values represented by RecognizerResultState enum
   RecognizerResultState resultState;
 
-  RecognizerResult(RecognizerResultState resultState) {
-    this.resultState = resultState;
-  }
+  RecognizerResult(this.resultState);
 
   factory RecognizerResult.fromJson(Map<String, dynamic> json) => _$RecognizerResultFromJson(json);
 
@@ -63,9 +61,7 @@ class RecognizerCollection {
 
   int milisecondsBeforeTimeout = 10000;
 
-  RecognizerCollection(List<Recognizer> recognizerArray) {
-    this.recognizerArray = recognizerArray;
-  }
+  RecognizerCollection(this.recognizerArray);
 
   factory RecognizerCollection.fromJson(Map<String, dynamic> json) => _$RecognizerCollectionFromJson(json);
 
