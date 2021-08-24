@@ -20,9 +20,11 @@ class _MyAppState extends State<MyApp> {
   Future<void> scan() async {
     String license;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwAAAEVY29tLm1pY3JvYmxpbmsuc2FtcGxl1BIcP6dpSuS/37rVOeGPMWzs39PRBgwM++WWSOa9w92s2Hn7+UdGcj+24Qru7zu1wxKzfLavdwHIzHlNKddkURwZVIvzE9jPilOKiRc26Bmwum9fehPfOzB0MUCUog2U+itV8GM8VHReXZe4A6COTULp5z3GZ0O9dcaPcuHhtzGZkCjDka9KCJxcLQmvIXbz/jTDVW/xhH4JPM4GIMlhRSePMV7gjWx8jwKrD0TKSQ==";
+      license = "sRwAAAEVY29tLm1pY3JvYmxpbmsuc2FtcGxl1BIcP6dpSuS/37rVPvGgnEXtW6n0WYNXlN/0i1f88yoVpcC6wVI7C9/PwW96iHudfFxZtXdYuU3G3FGWKgCcqkSdZwRtiHrFeYz8beVEwPAGbLMPGidJ8qm5ZtgfLYHJ5NqR0qfIfqKTIDlsGzUY2D2qp3KUfYcscbf9JftuQdMpQ8VfQ8eu0+x1aUckcowsgAfq8/CTF3cpaSF1mBKMCO+idtTRWI8B52aZZDeybQ==";
     } else if (Theme.of(context).platform == TargetPlatform.android) {
       license = "sRwAAAAVY29tLm1pY3JvYmxpbmsuc2FtcGxlU9kJdb5ZkGlTu623OTxHZKAmHTzXqVNPuhHHnXm497TWowJa0vswsDtOQZq7Sc8lndoPORaoDMYFMvzd4/aLTADiHm1Tg3+sCO9AS5lKKIrKANkKNEDvlHwYct9+g5e3xyq6fVy+uMzsdkFZqqbpCChDILiBQOJF4NOTufTLEDSeVNNV10nLisEBYEzD4zWZ9vnBZRNvg7WeEHOUoAOkn521e3E/oK9Andekqi0zbg==";
+    } else {
+      license = "";
     }
 
     var cardRecognizer = BlinkCardRecognizer();
@@ -42,8 +44,8 @@ class _MyAppState extends State<MyApp> {
         
         setState(() {
           _resultString = _resultString;
-          _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage;
-          _fullDocumentSecondImageBase64 = result.secondSideFullDocumentImage;
+          _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage ?? "";
+          _fullDocumentSecondImageBase64 = result.secondSideFullDocumentImage ?? "";
         });
 
         return;
@@ -61,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       buildDateResult(result.expiryDate, 'Expiry date');
   }
 
-  String buildResult(String result, String propertyName) {
+  String buildResult(String? result, String propertyName) {
     if (result == null || result.isEmpty) {
       return "";
     }
@@ -69,7 +71,7 @@ class _MyAppState extends State<MyApp> {
     return propertyName + ": " + result + "\n";
   }
 
-  String buildDateResult(Date result, String propertyName) {
+  String buildDateResult(Date? result, String propertyName) {
     if (result == null || result.year == 0) {
       return "";
     }
@@ -78,8 +80,8 @@ class _MyAppState extends State<MyApp> {
         "${result.day}.${result.month}.${result.year}", propertyName);
   }
 
-  String buildIntResult(int result, String propertyName) {
-    if (result < 0) {
+  String buildIntResult(int? result, String propertyName) {
+    if (result == null || result < 0) {
       return "";
     }
 
