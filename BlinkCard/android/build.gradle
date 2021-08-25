@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation('com.microblink:blinkcard:2.3.0@aar') {
+    implementation('com.microblink:blinkcard:2.4.0@aar') {
         transitive = true
     }
 }
