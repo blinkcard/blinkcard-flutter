@@ -5,11 +5,11 @@ part 'types.g.dart';
 class Date {
 
     /// day in month
-    int day;
+    int? day;
     /// month in year
-    int month;
+    int? month;
     /// year
-    int year;
+    int? year;
 
     Date(Map<String, dynamic> nativeDate) {
         this.day = nativeDate['day'];
@@ -22,13 +22,14 @@ class Date {
 class Point {
 
     /// x coordinate of the point
-    double x;
+    double? x;
     /// y coordinate of the point
-    double y;
+    double? y;
 
     Point(Map<String, dynamic> nativePoint) {
-        this.x = nativePoint['x']*1.0;
-        this.y = nativePoint['y']*1.0;
+
+        this.x = nativePoint['x'] != null? nativePoint['x']*1.0 : null;
+        this.y = nativePoint['y'] != null? nativePoint['y']*1.0 : null;
     }
 }
 
@@ -36,13 +37,13 @@ class Point {
 class Quadrilateral {
 
     /// upper left point of the quadrilateral
-    Point upperLeft;
+    Point? upperLeft;
     /// upper right point of the quadrilateral
-    Point upperRight;
+    Point? upperRight;
     /// lower left point of the quadrilateral
-    Point lowerLeft;
+    Point? lowerLeft;
     /// lower right point of the quadrilateral
-    Point lowerRight;
+    Point? lowerRight;
 
     Quadrilateral(Map<String, dynamic> nativeQuad) {
         this.upperLeft = Point(Map<String, dynamic>.from(nativeQuad['upperLeft']));
@@ -195,7 +196,7 @@ class CardNumberAnonymizationSettings {
 class BlinkCardAnonymizationSettings {
 
     /// Defines the parameters of card number anonymization.
-    CardNumberAnonymizationSettings cardNumberAnonymizationSettings = new CardNumberAnonymizationSettings();
+    CardNumberAnonymizationSettings? cardNumberAnonymizationSettings = new CardNumberAnonymizationSettings();
     /// Defines the mode of card number prefix anonymization.
     BlinkCardAnonymizationMode cardNumberPrefixAnonymizationMode = BlinkCardAnonymizationMode.None;
     /// Defines the mode of CVV anonymization.
@@ -220,13 +221,13 @@ class BlinkCardAnonymizationSettings {
 class ImageExtensionFactors {
 
     /// image extension factor relative to full image height in UP direction.
-    double upFactor = 0.0;
+    double? upFactor = 0.0;
     /// image extension factor relative to full image height in RIGHT direction.
-    double rightFactor = 0.0;
+    double? rightFactor = 0.0;
     /// image extension factor relative to full image height in DOWN direction.
-    double downFactor = 0.0;
+    double? downFactor = 0.0;
     /// image extension factor relative to full image height in LEFT direction.
-    double leftFactor = 0.0;
+    double? leftFactor = 0.0;
 
     ImageExtensionFactors();
 

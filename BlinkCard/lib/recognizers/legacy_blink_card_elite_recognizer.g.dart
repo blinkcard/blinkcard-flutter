@@ -18,12 +18,8 @@ LegacyBlinkCardEliteRecognizer _$LegacyBlinkCardEliteRecognizerFromJson(
     ..extractOwner = json['extractOwner'] as bool
     ..extractValidThru = json['extractValidThru'] as bool
     ..fullDocumentImageDpi = json['fullDocumentImageDpi'] as int
-    ..fullDocumentImageExtensionFactors =
-        json['fullDocumentImageExtensionFactors'] == null
-            ? null
-            : ImageExtensionFactors.fromJson(
-                json['fullDocumentImageExtensionFactors']
-                    as Map<String, dynamic>)
+    ..fullDocumentImageExtensionFactors = ImageExtensionFactors.fromJson(
+        json['fullDocumentImageExtensionFactors'] as Map<String, dynamic>)
     ..returnFullDocumentImage = json['returnFullDocumentImage'] as bool
     ..signResult = json['signResult'] as bool;
 }

@@ -9,8 +9,7 @@ part of 'types.dart';
 CardNumberAnonymizationSettings _$CardNumberAnonymizationSettingsFromJson(
     Map<String, dynamic> json) {
   return CardNumberAnonymizationSettings()
-    ..mode =
-        _$enumDecodeNullable(_$BlinkCardAnonymizationModeEnumMap, json['mode'])
+    ..mode = _$enumDecode(_$BlinkCardAnonymizationModeEnumMap, json['mode'])
     ..prefixDigitsVisible = json['prefixDigitsVisible'] as int
     ..suffixDigitsVisible = json['suffixDigitsVisible'] as int;
 }
@@ -23,36 +22,30 @@ Map<String, dynamic> _$CardNumberAnonymizationSettingsToJson(
       'suffixDigitsVisible': instance.suffixDigitsVisible,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
 const _$BlinkCardAnonymizationModeEnumMap = {
@@ -70,14 +63,14 @@ BlinkCardAnonymizationSettings _$BlinkCardAnonymizationSettingsFromJson(
             ? null
             : CardNumberAnonymizationSettings.fromJson(
                 json['cardNumberAnonymizationSettings'] as Map<String, dynamic>)
-    ..cardNumberPrefixAnonymizationMode = _$enumDecodeNullable(
+    ..cardNumberPrefixAnonymizationMode = _$enumDecode(
         _$BlinkCardAnonymizationModeEnumMap,
         json['cardNumberPrefixAnonymizationMode'])
-    ..cvvAnonymizationMode = _$enumDecodeNullable(
+    ..cvvAnonymizationMode = _$enumDecode(
         _$BlinkCardAnonymizationModeEnumMap, json['cvvAnonymizationMode'])
-    ..ibanAnonymizationMode = _$enumDecodeNullable(
+    ..ibanAnonymizationMode = _$enumDecode(
         _$BlinkCardAnonymizationModeEnumMap, json['ibanAnonymizationMode'])
-    ..ownerAnonymizationMode = _$enumDecodeNullable(
+    ..ownerAnonymizationMode = _$enumDecode(
         _$BlinkCardAnonymizationModeEnumMap, json['ownerAnonymizationMode']);
 }
 
@@ -99,10 +92,10 @@ Map<String, dynamic> _$BlinkCardAnonymizationSettingsToJson(
 ImageExtensionFactors _$ImageExtensionFactorsFromJson(
     Map<String, dynamic> json) {
   return ImageExtensionFactors()
-    ..upFactor = (json['upFactor'] as num)?.toDouble()
-    ..rightFactor = (json['rightFactor'] as num)?.toDouble()
-    ..downFactor = (json['downFactor'] as num)?.toDouble()
-    ..leftFactor = (json['leftFactor'] as num)?.toDouble();
+    ..upFactor = (json['upFactor'] as num?)?.toDouble()
+    ..rightFactor = (json['rightFactor'] as num?)?.toDouble()
+    ..downFactor = (json['downFactor'] as num?)?.toDouble()
+    ..leftFactor = (json['leftFactor'] as num?)?.toDouble();
 }
 
 Map<String, dynamic> _$ImageExtensionFactorsToJson(
