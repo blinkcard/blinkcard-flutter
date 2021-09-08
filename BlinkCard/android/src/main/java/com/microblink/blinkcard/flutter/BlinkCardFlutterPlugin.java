@@ -32,9 +32,9 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 
-public class MicroblinkFlutterPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
+public class BlinkCardFlutterPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
 
-  private static final String CHANNEL = "microblink_scanner";
+  private static final String CHANNEL = "blinkcard_scanner";
 
   private static final int SCAN_REQ_CODE = 1904;
   private static final String METHOD_SCAN = "scanWithCamera";
@@ -57,7 +57,7 @@ public class MicroblinkFlutterPlugin implements FlutterPlugin, MethodCallHandler
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
   // pre-Flutter-1.12 Android projects.
   public static void registerWith(Registrar registrar) {
-    final MicroblinkFlutterPlugin plugin = new MicroblinkFlutterPlugin();
+    final BlinkCardFlutterPlugin plugin = new BlinkCardFlutterPlugin();
     plugin.setupPlugin(registrar.activity(), registrar.messenger());
     registrar.addActivityResultListener(plugin);
   }

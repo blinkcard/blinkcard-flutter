@@ -9,9 +9,9 @@ export 'package:blinkcard_flutter/recognizer.dart';
 export 'package:blinkcard_flutter/overlay_settings.dart';
 export 'package:blinkcard_flutter/types.dart';
 
-class MicroblinkScanner {
+class BlinkCardScanner {
 
-  static const MethodChannel _channel = const MethodChannel('microblink_scanner');
+  static const MethodChannel _channel = const MethodChannel('blinkcard_scanner');
 
   static const String METHOD_SCAN_WITH_CAMERA = 'scanWithCamera';
 

@@ -32,6 +32,6 @@ flutter:
     platforms:
       android:
         package: com.microblink.blinkcard.flutter
-        pluginClass: MicroblinkFlutterPlugin
+        pluginClass: BlinkCardFlutterPlugin
       ios:
         pluginClass: MicroblinkFlutterPlugin

@@ -11,14 +11,14 @@ flutter create -a java --org com.microblink $appName
 # enter into demo project folder
 pushd $appName
 
-IS_LOCAL_BUILD=false || exit 1
+IS_LOCAL_BUILD=true || exit 1
 if [ "$IS_LOCAL_BUILD" = true ]; then
   # add blinkcard_flutter dependency with local path to pubspec.yaml
-  perl -i~ -pe "BEGIN{$/ = undef;} s/dependencies:\n  flutter:\n    sdk: flutter/dependencies:\n  flutter:\n    sdk: flutter\n  blinkcard_flutter:\n    path: ..\/BlinkCard/" pubspec.yaml
+  perl -i~ -pe "BEGIN{$/ = undef;} s/dependencies:\n  flutter:\n    sdk: flutter/dependencies:\n  flutter:\n    sdk: flutter\n  blinkcard_flutter:\n    path: ..\/BlinkCard\n  blinkid_flutter:/" pubspec.yaml
   echo "Using blinkcard_flutter from this repo instead from flutter pub"
 else
   # add blinkcard_flutter dependency to pubspec.yaml
-  perl -i~ -pe "BEGIN{$/ = undef;} s/dependencies:\n  flutter:\n    sdk: flutter/dependencies:\n  flutter:\n    sdk: flutter\n  blinkcard_flutter:/" pubspec.yaml
+  perl -i~ -pe "BEGIN{$/ = undef;} s/dependencies:\n  flutter:\n    sdk: flutter/dependencies:\n  flutter:\n    sdk: flutter\n  blinkcard_flutter:\n  blinkid_flutter:/" pubspec.yaml
   echo "Using blinkcard_flutter from flutter pub"
 fi
 
