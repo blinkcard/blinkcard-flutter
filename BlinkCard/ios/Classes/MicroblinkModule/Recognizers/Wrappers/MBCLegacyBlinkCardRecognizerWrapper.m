@@ -1,22 +1,22 @@
-#import "MBLegacyBlinkCardEliteRecognizerWrapper.h"
-#import "MBSerializationUtils.h"
-#import "MBBlinkCardSerializationUtils.h"
-#import "MBCommonSerializationUtils.h"
+#import "MBCLegacyBlinkCardRecognizerWrapper.h"
+#import "MBCSerializationUtils.h"
+#import "MBCBlinkCardSerializationUtils.h"
+#import "MBCCommonSerializationUtils.h"
 
-@implementation MBCLegacyBlinkCardEliteRecognizerCreator
+@implementation MBCLegacyBlinkCardRecognizerCreator
 
 @synthesize jsonName = _jsonName;
 
 -(instancetype) init {
     self = [super init];
     if (self) {
-        _jsonName = @"LegacyBlinkCardEliteRecognizer";
+        _jsonName = @"LegacyBlinkCardRecognizer";
     }
     return self;
 }
 
 -(MBCRecognizer *) createRecognizer:(NSDictionary*) jsonRecognizer {
-    MBCLegacyBlinkCardEliteRecognizer *recognizer = [[MBCLegacyBlinkCardEliteRecognizer alloc] init];
+    MBCLegacyBlinkCardRecognizer *recognizer = [[MBCLegacyBlinkCardRecognizer alloc] init];
     {
         id anonymizeCardNumber = [jsonRecognizer valueForKey:@"anonymizeCardNumber"];
         if (anonymizeCardNumber != nil) {
@@ -32,6 +32,13 @@
 
     }
     {
+        id anonymizeIban = [jsonRecognizer valueForKey:@"anonymizeIban"];
+        if (anonymizeIban != nil) {
+            recognizer.anonymizeIban = [(NSNumber *)anonymizeIban boolValue];
+        }
+
+    }
+    {
         id anonymizeOwner = [jsonRecognizer valueForKey:@"anonymizeOwner"];
         if (anonymizeOwner != nil) {
             recognizer.anonymizeOwner = [(NSNumber *)anonymizeOwner boolValue];
@@ -42,6 +49,20 @@
         id detectGlare = [jsonRecognizer valueForKey:@"detectGlare"];
         if (detectGlare != nil) {
             recognizer.detectGlare = [(NSNumber *)detectGlare boolValue];
+        }
+
+    }
+    {
+        id extractCvv = [jsonRecognizer valueForKey:@"extractCvv"];
+        if (extractCvv != nil) {
+            recognizer.extractCvv = [(NSNumber *)extractCvv boolValue];
+        }
+
+    }
+    {
+        id extractIban = [jsonRecognizer valueForKey:@"extractIban"];
+        if (extractIban != nil) {
+            recognizer.extractIban = [(NSNumber *)extractIban boolValue];
         }
 
     }
@@ -100,10 +121,10 @@
 
 @end
 
-@interface MBCLegacyBlinkCardEliteRecognizer (JsonSerialization)
+@interface MBCLegacyBlinkCardRecognizer (JsonSerialization)
 @end
 
-@implementation MBCLegacyBlinkCardEliteRecognizer (JsonSerialization)
+@implementation MBCLegacyBlinkCardRecognizer (JsonSerialization)
 
 -(NSDictionary *) serializeResult {
     NSMutableDictionary* jsonResult = (NSMutableDictionary*)[super serializeResult];
@@ -114,7 +135,9 @@
     [jsonResult setValue:[NSNumber numberWithInteger:(self.result.documentDataMatch)] forKey:@"documentDataMatch"];
     [jsonResult setValue:[MBCSerializationUtils encodeMBImage:self.result.fullDocumentBackImage] forKey:@"fullDocumentBackImage"];
     [jsonResult setValue:[MBCSerializationUtils encodeMBImage:self.result.fullDocumentFrontImage] forKey:@"fullDocumentFrontImage"];
+    [jsonResult setValue:self.result.iban forKey:@"iban"];
     [jsonResult setValue:self.result.inventoryNumber forKey:@"inventoryNumber"];
+    [jsonResult setValue:[NSNumber numberWithInteger:(self.result.issuer)] forKey:@"issuer"];
     [jsonResult setValue:self.result.owner forKey:@"owner"];
     [jsonResult setValue:[NSNumber numberWithBool:self.result.scanningFirstSideDone] forKey:@"scanningFirstSideDone"];
     [jsonResult setValue:[MBCSerializationUtils serializeMBDateResult:self.result.validThru] forKey:@"validThru"];
