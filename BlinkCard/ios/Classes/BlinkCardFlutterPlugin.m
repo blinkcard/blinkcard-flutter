@@ -1,11 +1,11 @@
-#import "MicroblinkFlutterPlugin.h"
+#import "BlinkCardFlutterPlugin.h"
 #import <BlinkCard/BlinkCard.h>
-#import "MicroblinkModule/Overlays/MBOverlayViewControllerDelegate.h"
-#import "MicroblinkModule/Recognizers/MBRecognizerSerializers.h"
-#import "MicroblinkModule/Overlays/MBOverlaySettingsSerializers.h"
-#import "MBSerializationUtils.h"
+#import "MicroblinkModule/Overlays/MBCOverlayViewControllerDelegate.h"
+#import "MicroblinkModule/Recognizers/MBCRecognizerSerializers.h"
+#import "MicroblinkModule/Overlays/MBCOverlaySettingsSerializers.h"
+#import "MBCSerializationUtils.h"
 
-@interface MicroblinkFlutterPlugin () <MBCOverlayViewControllerDelegate>
+@interface BlinkCardFlutterPlugin () <MBCOverlayViewControllerDelegate>
 
 @property (nonatomic, strong) MBCRecognizerCollection *recognizerCollection;
 
@@ -13,16 +13,16 @@
 
 @end
 
-static NSString* const kChannelName = @"microblink_scanner";
+static NSString* const kChannelName = @"blinkcard_scanner";
 static NSString* const kScanWithCameraMethodName = @"scanWithCamera";
 
-@implementation MicroblinkFlutterPlugin
+@implementation BlinkCardFlutterPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel
                                      methodChannelWithName:kChannelName
                                      binaryMessenger:[registrar messenger]];
-    MicroblinkFlutterPlugin* instance = [[MicroblinkFlutterPlugin alloc] init];
+    BlinkCardFlutterPlugin* instance = [[BlinkCardFlutterPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];
 }
 
