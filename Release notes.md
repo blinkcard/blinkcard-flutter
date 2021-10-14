@@ -1,3 +1,7 @@
+## 2.4.2
+
+- Hotfix - change channel name
+
 ## 2.4.1
 
 - Changed file prefixes to support interoperability with BlinkID.
