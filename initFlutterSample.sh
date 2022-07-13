@@ -52,6 +52,11 @@ popd
 
 cp ../sample_files/main.dart lib/
 
+#update compile and target sdk versions to 31, add android:exported="true" to manifest
+sed -i '' 's#compileSdkVersion 30#compileSdkVersion 31#g' ./android/app/build.gradle
+sed -i '' 's#targetSdkVersion 30#targetSdkVersion 31#g' ./android/app/build.gradle
+sed -i '' 's#android:name=".MainActivity"#android:name=".MainActivity" android:exported="true"#g' ./android/app/src/main/AndroidManifest.xml
+
 echo ""
 echo "Go to Flutter project folder: cd $appName"
 echo "To run on Android type: flutter run"
