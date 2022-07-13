@@ -22,7 +22,6 @@ class Recognizer {
   }
 
   factory Recognizer.fromJson(Map<String, dynamic> json) => _$RecognizerFromJson(json);
-
   Map<String, dynamic> toJson() => _$RecognizerToJson(this);
 }
 
@@ -48,7 +47,6 @@ class RecognizerResult {
   RecognizerResult(this.resultState);
 
   factory RecognizerResult.fromJson(Map<String, dynamic> json) => _$RecognizerResultFromJson(json);
-
   Map<String, dynamic> toJson() => _$RecognizerResultToJson(this);
 }
 
@@ -64,6 +62,5 @@ class RecognizerCollection {
   RecognizerCollection(this.recognizerArray);
 
   factory RecognizerCollection.fromJson(Map<String, dynamic> json) => _$RecognizerCollectionFromJson(json);
-
   Map<String, dynamic> toJson() => _$RecognizerCollectionToJson(this);
 }
