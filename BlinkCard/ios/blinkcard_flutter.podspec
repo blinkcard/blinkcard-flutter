@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'blinkcard_flutter'
-  s.version          = '2.4.2'
+  s.version          = '2.6.0'
   s.summary          = 'Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.'
   s.description      = <<-DESC
 Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.
@@ -16,9 +16,9 @@ Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '12.0'
 
-  s.dependency 'MBBlinkCard', '~> 2.4.0'
+  s.dependency 'MBBlinkCard', '~> 2.6.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
