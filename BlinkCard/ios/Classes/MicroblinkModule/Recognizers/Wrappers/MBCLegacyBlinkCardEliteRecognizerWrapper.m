@@ -87,13 +87,6 @@
         }
 
     }
-    {
-        id signResult = [jsonRecognizer valueForKey:@"signResult"];
-        if (signResult != nil) {
-            recognizer.signResult = [(NSNumber *)signResult boolValue];
-        }
-
-    }
 
     return recognizer;
 }
@@ -109,8 +102,6 @@
     NSMutableDictionary* jsonResult = (NSMutableDictionary*)[super serializeResult];
     [jsonResult setValue:self.result.cardNumber forKey:@"cardNumber"];
     [jsonResult setValue:self.result.cvv forKey:@"cvv"];
-    [jsonResult setValue:[self.result.digitalSignature base64EncodedStringWithOptions:0] forKey:@"digitalSignature"];
-    [jsonResult setValue:[NSNumber numberWithInteger:self.result.digitalSignatureVersion] forKey:@"digitalSignatureVersion"];
     [jsonResult setValue:[NSNumber numberWithInteger:(self.result.documentDataMatch)] forKey:@"documentDataMatch"];
     [jsonResult setValue:[MBCSerializationUtils encodeMBImage:self.result.fullDocumentBackImage] forKey:@"fullDocumentBackImage"];
     [jsonResult setValue:[MBCSerializationUtils encodeMBImage:self.result.fullDocumentFrontImage] forKey:@"fullDocumentFrontImage"];

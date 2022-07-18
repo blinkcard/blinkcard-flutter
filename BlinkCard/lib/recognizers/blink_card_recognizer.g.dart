@@ -20,8 +20,7 @@ BlinkCardRecognizer _$BlinkCardRecognizerFromJson(Map<String, dynamic> json) {
     ..fullDocumentImageExtensionFactors = ImageExtensionFactors.fromJson(
         json['fullDocumentImageExtensionFactors'] as Map<String, dynamic>)
     ..paddingEdge = (json['paddingEdge'] as num).toDouble()
-    ..returnFullDocumentImage = json['returnFullDocumentImage'] as bool
-    ..signResult = json['signResult'] as bool;
+    ..returnFullDocumentImage = json['returnFullDocumentImage'] as bool;
 }
 
 Map<String, dynamic> _$BlinkCardRecognizerToJson(
@@ -39,5 +38,4 @@ Map<String, dynamic> _$BlinkCardRecognizerToJson(
           instance.fullDocumentImageExtensionFactors,
       'paddingEdge': instance.paddingEdge,
       'returnFullDocumentImage': instance.returnFullDocumentImage,
-      'signResult': instance.signResult,
     };

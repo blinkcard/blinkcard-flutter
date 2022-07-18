@@ -187,7 +187,6 @@ class CardNumberAnonymizationSettings {
     CardNumberAnonymizationSettings();
 
     factory CardNumberAnonymizationSettings.fromJson(Map<String, dynamic> json) => _$CardNumberAnonymizationSettingsFromJson(json);
-
     Map<String, dynamic> toJson() => _$CardNumberAnonymizationSettingsToJson(this);
 }
 
@@ -209,7 +208,6 @@ class BlinkCardAnonymizationSettings {
     BlinkCardAnonymizationSettings();
 
     factory BlinkCardAnonymizationSettings.fromJson(Map<String, dynamic> json) => _$BlinkCardAnonymizationSettingsFromJson(json);
-
     Map<String, dynamic> toJson() => _$BlinkCardAnonymizationSettingsToJson(this);
 }
 
@@ -232,7 +230,6 @@ class ImageExtensionFactors {
     ImageExtensionFactors();
 
     factory ImageExtensionFactors.fromJson(Map<String, dynamic> json) => _$ImageExtensionFactorsFromJson(json);
-
     Map<String, dynamic> toJson() => _$ImageExtensionFactorsToJson(this);
 }
 

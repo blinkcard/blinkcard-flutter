@@ -19,12 +19,6 @@ class BlinkCardRecognizerResult extends RecognizerResult {
     /// Payment card's security code/value. 
     String? cvv;
     
-    ///Digital signature of the recognition result. Available only if enabled with signResult property. 
-    String? digitalSignature;
-    
-    ///Version of the digital signature. Available only if enabled with signResult property. 
-    int? digitalSignatureVersion;
-    
     ///The payment card's expiry date. 
     Date? expiryDate;
     
@@ -65,10 +59,6 @@ class BlinkCardRecognizerResult extends RecognizerResult {
         this.cardNumberValid = nativeResult["cardNumberValid"];
         
         this.cvv = nativeResult["cvv"];
-        
-        this.digitalSignature = nativeResult["digitalSignature"];
-        
-        this.digitalSignatureVersion = nativeResult["digitalSignatureVersion"];
         
         this.expiryDate = nativeResult["expiryDate"] != null ? Date(Map<String, dynamic>.from(nativeResult["expiryDate"])) : null;
         
@@ -152,11 +142,6 @@ class BlinkCardRecognizer extends Recognizer {
     /// 
     bool returnFullDocumentImage = false;
     
-    ///Whether or not recognition result should be signed.
-    /// 
-    /// 
-    bool signResult = false;
-    
     BlinkCardRecognizer(): super('BlinkCardRecognizer');
 
     RecognizerResult createResultFromNative(Map<String, dynamic> nativeResult) {
@@ -164,6 +149,5 @@ class BlinkCardRecognizer extends Recognizer {
     }
 
     factory BlinkCardRecognizer.fromJson(Map<String, dynamic> json) => _$BlinkCardRecognizerFromJson(json);
-
     Map<String, dynamic> toJson() => _$BlinkCardRecognizerToJson(this);
 }

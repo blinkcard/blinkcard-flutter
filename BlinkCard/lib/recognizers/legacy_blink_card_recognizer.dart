@@ -13,12 +13,6 @@ class LegacyBlinkCardRecognizerResult extends RecognizerResult {
     /// Payment card's security code/value 
     String? cvv;
     
-    ///Digital signature of the recognition result. Available only if enabled with signResult property. 
-    String? digitalSignature;
-    
-    ///Version of the digital signature. Available only if enabled with signResult property. 
-    int? digitalSignatureVersion;
-    
     ///Returns CDataMatchResultSuccess if data from scanned parts/sides of the document match,
     /// CDataMatchResultFailed otherwise. For example if date of expiry is scanned from the front and back side
     /// of the document and values do not match, this method will return CDataMatchResultFailed. Result will
@@ -55,10 +49,6 @@ class LegacyBlinkCardRecognizerResult extends RecognizerResult {
         this.cardNumber = nativeResult["cardNumber"];
         
         this.cvv = nativeResult["cvv"];
-        
-        this.digitalSignature = nativeResult["digitalSignature"];
-        
-        this.digitalSignatureVersion = nativeResult["digitalSignatureVersion"];
         
         this.documentDataMatch = DataMatchResult.values[nativeResult["documentDataMatch"]];
         
@@ -153,11 +143,6 @@ class LegacyBlinkCardRecognizer extends Recognizer {
     /// 
     bool returnFullDocumentImage = false;
     
-    ///Whether or not recognition result should be signed.
-    /// 
-    /// 
-    bool signResult = false;
-    
     LegacyBlinkCardRecognizer(): super('LegacyBlinkCardRecognizer');
 
     RecognizerResult createResultFromNative(Map<String, dynamic> nativeResult) {
@@ -165,6 +150,5 @@ class LegacyBlinkCardRecognizer extends Recognizer {
     }
 
     factory LegacyBlinkCardRecognizer.fromJson(Map<String, dynamic> json) => _$LegacyBlinkCardRecognizerFromJson(json);
-
     Map<String, dynamic> toJson() => _$LegacyBlinkCardRecognizerToJson(this);
 }

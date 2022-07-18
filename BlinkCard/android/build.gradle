@@ -16,7 +16,7 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'http://maven.microblink.com' }
+        maven { url 'https://maven.microblink.com' }
     }
 }
 
@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation('com.microblink:blinkcard:2.4.0@aar') {
+    implementation('com.microblink:blinkcard:2.6.0@aar') {
         transitive = true
     }
 }

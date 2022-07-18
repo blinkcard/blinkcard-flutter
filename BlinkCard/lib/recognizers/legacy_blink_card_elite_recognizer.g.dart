@@ -20,8 +20,7 @@ LegacyBlinkCardEliteRecognizer _$LegacyBlinkCardEliteRecognizerFromJson(
     ..fullDocumentImageDpi = json['fullDocumentImageDpi'] as int
     ..fullDocumentImageExtensionFactors = ImageExtensionFactors.fromJson(
         json['fullDocumentImageExtensionFactors'] as Map<String, dynamic>)
-    ..returnFullDocumentImage = json['returnFullDocumentImage'] as bool
-    ..signResult = json['signResult'] as bool;
+    ..returnFullDocumentImage = json['returnFullDocumentImage'] as bool;
 }
 
 Map<String, dynamic> _$LegacyBlinkCardEliteRecognizerToJson(
@@ -39,5 +38,4 @@ Map<String, dynamic> _$LegacyBlinkCardEliteRecognizerToJson(
       'fullDocumentImageExtensionFactors':
           instance.fullDocumentImageExtensionFactors,
       'returnFullDocumentImage': instance.returnFullDocumentImage,
-      'signResult': instance.signResult,
     };
