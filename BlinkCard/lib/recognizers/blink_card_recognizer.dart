@@ -13,16 +13,16 @@ class BlinkCardRecognizerResult extends RecognizerResult {
     ///The payment card number prefix. 
     String? cardNumberPrefix;
     
-    ///Flag which indicatew whether the payment card number is valid or not. 
+    ///The payment card number is valid 
     bool? cardNumberValid;
     
-    ///Payment card's security code/value. 
+    /// Payment card's security code/value. 
     String? cvv;
     
     ///The payment card's expiry date. 
     Date? expiryDate;
     
-    ///Whether the first scanned side is blurred. 
+    ///Wheater the first scanned side is blurred. 
     bool? firstSideBlurred;
     
     ///Full image of the payment card from first side recognition. 
@@ -34,16 +34,17 @@ class BlinkCardRecognizerResult extends RecognizerResult {
     ///Payment card's issuing network. 
     Issuer? issuer;
     
-    ///Information about the payment card owner. 
+    ///Information about the payment card owner (name, company, etc.). 
     String? owner;
     
     ///Status of the last recognition process. 
     BlinkCardProcessingStatus? processingStatus;
     
-    ///{true} if recognizer has finished scanning first side and is now scanning back side, 
+    ///Returns true if recognizer has finished scanning first side and is now scanning back side,
+    /// false if it's still scanning first side. 
     bool? scanningFirstSideDone;
     
-    ///Whether the second scanned side is blurred. 
+    ///Wheater the second scanned side is blurred. 
     bool? secondSideBlurred;
     
     ///Full image of the payment card from second side recognition. 
@@ -83,38 +84,62 @@ class BlinkCardRecognizerResult extends RecognizerResult {
 }
 
 
-///Recognizer used for scanning both sides of payment cards.
+///Recognizer used for scanning credit/debit cards.
 @JsonSerializable()
 class BlinkCardRecognizer extends Recognizer {
     
-    ///Whether blured frames filtering is allowed.
+    ///Defines whether blured frames filtering is allowed
+    /// 
+    /// 
     bool allowBlurFilter = true;
     
-    ///The settings which control the anonymization of returned data.
+    ///Defines whether sensitive data should be redacted from the result.
+    /// 
+    /// 
     BlinkCardAnonymizationSettings anonymizationSettings = BlinkCardAnonymizationSettings();
     
-    ///Should extract the card CVV
+    ///Should extract CVV
+    /// 
+    /// 
     bool extractCvv = true;
     
-    ///Should extract the payment card's expiry date.
+    ///Should extract the payment card's month of expiry
+    /// 
+    /// 
     bool extractExpiryDate = true;
     
-    ///Should extract the card IBAN
+    ///Should extract the payment card's IBAN
+    /// 
+    /// 
     bool extractIban = true;
     
     ///Should extract the card owner information
+    /// 
+    /// 
     bool extractOwner = true;
     
-    ///The DPI (Dots Per Inch) for full document image that should be returned.
+    ///Property for setting DPI for full document images
+    /// Valid ranges are [100,400]. Setting DPI out of valid ranges throws an exception
+    /// 
+    /// 
     int fullDocumentImageDpi = 250;
     
-    ///The extension factors for full document image.
+    ///Image extension factors for full document image.
+    /// 
+    /// @see CImageExtensionFactors
+    /// 
     ImageExtensionFactors fullDocumentImageExtensionFactors = ImageExtensionFactors();
     
-    ///Padding is a minimum distance from the edge of the frame and it is defined as a percentage
+    ///Pading is a minimum distance from the edge of the frame and is defined as a percentage of the frame width. Default value is 0.0f and in that case
+    /// padding edge and image edge are the same.
+    /// Recommended value is 0.02f.
+    /// 
+    /// 
     double paddingEdge = 0.0;
     
-    ///Defines whether full document image will be available in
+    ///Sets whether full document image of ID card should be extracted.
+    /// 
+    /// 
     bool returnFullDocumentImage = false;
     
     BlinkCardRecognizer(): super('BlinkCardRecognizer');
