@@ -2,8 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 export 'package:blinkcard_flutter/recognizers/success_frame_grabber_recognizer.dart';
 export 'package:blinkcard_flutter/recognizers/blink_card_recognizer.dart';
-export 'package:blinkcard_flutter/recognizers/legacy_blink_card_elite_recognizer.dart';
-export 'package:blinkcard_flutter/recognizers/legacy_blink_card_recognizer.dart';
 part 'recognizer.g.dart';
 
 /// Base class for all recognizers.

@@ -53,64 +53,6 @@ class Quadrilateral {
     }
 }
 
-/// Supported Legacy BlinkCard card issuer values.
-enum LegacyCardIssuer {
-    /// Unidentified Card
-    Other,
-    /// The American Express Company Card
-    AmericanExpress,
-    /// The Bank of Montreal ABM Card
-    BmoAbm,
-    /// China T-Union Transportation Card
-    ChinaTUnion,
-    /// China UnionPay Card
-    ChinaUnionPay,
-    /// Canadian Imperial Bank of Commerce Advantage Debit Card
-    CibcAdvantageDebit,
-    /// CISS Card
-    Ciss,
-    /// Diners Club International Card
-    DinersClubInternational,
-    /// Diners Club United States & Canada Card
-    DinersClubUsCanada,
-    /// Discover Card
-    DiscoverCard,
-    /// HSBC Bank Canada Card
-    Hsbc,
-    /// RuPay Card
-    RuPay,
-    /// InterPayment Card
-    InterPayment,
-    /// InstaPayment Card
-    InstaPayment,
-    /// The JCB Company Card
-    Jcb,
-    /// Laser Debit Card (deprecated)
-    Laser,
-    /// Maestro Debit Card
-    Maestro,
-    /// Dankort Card
-    Dankort,
-    /// MIR Card
-    Mir,
-    /// MasterCard Inc. Card
-    MasterCard,
-    /// The Royal Bank of Canada Client Card
-    RbcClient,
-    /// ScotiaBank Scotia Card
-    ScotiaBank,
-    /// TD Canada Trust Access Card
-    TdCtAccess,
-    /// Troy Card
-    Troy,
-    /// Visa Inc. Card
-    Visa,
-    /// Universal Air Travel Plan Inc. Card
-    Uatp,
-    /// Interswitch Verve Card
-    Verve
-}
-
 /// Supported BlinkCard card issuer values.
 enum Issuer {
     /// Unidentified Card
@@ -164,13 +106,49 @@ enum BlinkCardProcessingStatus {
 /// Determines which data is anonymized in the returned recognizer result.
 enum BlinkCardAnonymizationMode {
     /// No anonymization is performed in this mode.
-    @JsonValue(1) None,
+    @JsonValue(0) None,
     /// Sensitive data in the document image is anonymized with black boxes covering selected sensitive data. Data returned in result fields is not changed.
-    @JsonValue(2) ImageOnly,
+    @JsonValue(1) ImageOnly,
     /// Document image is not changed. Data returned in result fields is redacted.
-    @JsonValue(3) FieldsOnly,
+    @JsonValue(2) FieldsOnly,
     /// Sensitive data in the image is anonymized with black boxes covering selected sensitive data. Data returned in result fields is redacted.
-    @JsonValue(4) FullResult
+    @JsonValue(3) FullResult
+}
+
+///Enumerates the possible match levels indicating the strictness of a check result. Higher is stricter.
+enum BlinkCardMatchLevel {
+    /// Match level is disabled.
+    @JsonValue(0) Disabled,
+    /// Match level one.
+    @JsonValue(1) Level1,
+    /// Match level two
+    @JsonValue(2) Level2,
+    /// Match level three
+    @JsonValue(3) Level3,
+    /// Match level four
+    @JsonValue(4) Level4,
+    /// Match level five
+    @JsonValue(5) Level5,
+    /// Match level six
+    @JsonValue(6) Level6,
+    /// Match level seven
+    @JsonValue(7) Level7,
+    /// Match level eight
+    @JsonValue(8) Level8,
+    /// Match level nine
+    @JsonValue(9) Level9,
+    /// Match level ten. Most strict match level
+    @JsonValue(10) Level10
+}
+
+///Enumerates the possible results of BlinkCard's document liveness checks.
+enum BlinkCardCheckResult {
+    /// Indicates that the check was not performed.
+    NotPerformed,
+    /// Indicates that the document passed the check successfully.
+    Pass,
+    ///Indicates that the document failed the check.
+    Fail
 }
 
 /// Holds the settings which control card number anonymization.
@@ -211,6 +189,35 @@ class BlinkCardAnonymizationSettings {
     Map<String, dynamic> toJson() => _$BlinkCardAnonymizationSettingsToJson(this);
 }
 
+///Represents the card side for liveness checks
+class BlinkCardSide {
+  /// Retrieves the result of the check indicating the presence of a live hand.
+  BlinkCardCheckResult? handPresenceCheck;
+  /// Retrieves the result of the check performed on the document using photocopy detection.
+  BlinkCardCheckResult? photocopyCheck;
+  /// Retrieves the result of the check performed on the document using screen detection.
+  BlinkCardCheckResult? screenCheck;
+
+  BlinkCardSide(Map<String, dynamic> nativeCardSide) {
+    this.handPresenceCheck = BlinkCardCheckResult.values[nativeCardSide['handPresenceCheck']];
+    this.photocopyCheck = BlinkCardCheckResult.values[nativeCardSide['photocopyCheck']];
+    this.screenCheck = BlinkCardCheckResult.values[nativeCardSide['screenCheck']];
+  }
+}
+
+/// Represents the result of liveness checks on both sides (front and back) of a card.
+class DocumentLivenessCheckResult {
+  ///  Returns the document liveness result of the first side.
+  BlinkCardSide? front;
+  /// Return the document liveness result of the back side.
+  BlinkCardSide? back;
+
+  DocumentLivenessCheckResult(Map<String, dynamic> nativeDocumentLivenessCheckResult) {
+    this.front = nativeDocumentLivenessCheckResult['front'] != null? BlinkCardSide(Map<String, dynamic>.from(nativeDocumentLivenessCheckResult['front'])) : null;
+    this.back = nativeDocumentLivenessCheckResult['back'] != null? BlinkCardSide(Map<String, dynamic>.from(nativeDocumentLivenessCheckResult['back'])) : null;
+  }
+}
+
 /// Extension factors relative to corresponding dimension of the full image. For example,
 /// upFactor and downFactor define extensions relative to image height, e.g.
 /// when upFactor is 0.5, upper image boundary will be extended for half of image's full
@@ -234,7 +241,7 @@ class ImageExtensionFactors {
 }
 
 /// Result of the data matching algorithm for scanned parts/sides of the document.
-enum DataMatchResult {
+enum DataMatchState {
     /// Data matching has not been performed.
     NotPerformed,
     /// Data does not match.
