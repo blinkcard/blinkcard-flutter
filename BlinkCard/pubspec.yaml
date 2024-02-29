@@ -1,6 +1,6 @@
 name: blinkcard_flutter
 description: Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.
-version: 2.6.0
+version: 2.9.0
 author: Microblink
 homepage: https://microblink.com
 
