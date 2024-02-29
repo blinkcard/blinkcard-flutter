@@ -20,9 +20,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> scan() async {
     String license;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwAAAEVY29tLm1pY3JvYmxpbmsuc2FtcGxl1BIcP6dpSuS/37rVPPmJM1WVgUPxJ6drb0RlV8e0cdQjsz2ti42it9NqPg8OAPX47u13pXjleAvZAuxN0Fr8kBeUjMM8y/GJ/4FRBIETzsuJKokzMn2HTkkeMXtep7afy/JHdc+8FKJdSEn0RJfEkxAVdvY0OV+Ozu2Zjca+ULM9jA23TXgGkRWicDTBuPbNzT2exFl7fHx6/olVSQ9zrAa/dMpIWjqfRyM22uSc5g==";
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTURnMk9EWTNOalE0TURZc0lrTnlaV0YwWldSR2IzSWlPaUkwT1RabFpEQXpaUzAwT0RBeExUUXpZV1F0WVRrMU5DMDBNemMyWlRObU9UTTVNR1FpZlE9Pc2TFqY01wri2M94Fe5sCUOx4F7K3M5TXqNAAJZWrZrJijNfC57WBNQMo7GkQo9Fp6zemUCuWlW0XGzB0RqVzCG1Y8aztpnim/cOYMPi5xoqZm3O3DeSkjmH6qUIyg==";
     } else if (Theme.of(context).platform == TargetPlatform.android) {
-      license = "sRwAAAAVY29tLm1pY3JvYmxpbmsuc2FtcGxlU9kJdb5ZkGlTu623PARDZ2y3bw/2FMh5N8Ns88iVHtrPi9+/nWa1Jfjuaio9sNqvjMT6OtkQ6mJBjE58IcmwG5+mm6WUi+Jy6MYfmGIzIoMFQvkqfYUo2Q/WFqsbYjo57kuic4Q5BWQbqavo1wF7llPipW1ABXqrTLnoewhyHJrJCMyXSOvK6ensoeNbd2iJtgi2L6myHxmekGcmW2ZnKr9otoMUy0YqZ5AjqMxjDw==";
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTURnMk9EWTNPRGcwT1Rrc0lrTnlaV0YwWldSR2IzSWlPaUkwT1RabFpEQXpaUzAwT0RBeExUUXpZV1F0WVRrMU5DMDBNemMyWlRObU9UTTVNR1FpZlE9PUwdDoL/tBLmwfbOm3/dmw5DjLaYtTz1AGwI1162GlPEct+8fJxPBysGwVZ/8KX0Ygxi7NeroVHPM6IDNhCkmUMDHqELYqH3nK8xm8FPaTjCcN53o3B40SKVLm1Quw==";
     } else {
       license = "";
     }
@@ -60,7 +60,9 @@ class _MyAppState extends State<MyApp> {
       buildResult(result.cvv, 'CVV') +
       buildResult(result.owner, 'Owner') +
       buildResult(result.cardNumberValid.toString(), 'Card Number Valid') +
-      buildDateResult(result.expiryDate, 'Expiry date');
+      buildDateResult(result.expiryDate, 'Expiry date') + 
+      buildLivenessResult(result.documentLivenessCheck?.front, 'Front side liveness checks') +
+      buildLivenessResult(result.documentLivenessCheck?.back, 'Back side liveness checks');
   }
 
   String buildResult(String? result, String propertyName) {
@@ -69,6 +71,17 @@ class _MyAppState extends State<MyApp> {
     }
 
     return propertyName + ": " + result + "\n";
+  }
+
+  String buildLivenessResult(BlinkCardSide? result, String propertyName) {
+    if (result == null) {
+      return "";
+    }
+
+    return "\n" + propertyName + ": " + "\n" +
+      buildResult(result.handPresenceCheck.toString(), 'Hand presence check') +
+      buildResult(result.photocopyCheck.toString(), 'Photocopy check') +
+      buildResult(result.screenCheck.toString(), 'Screen check');
   }
 
   String buildDateResult(Date? result, String propertyName) {
