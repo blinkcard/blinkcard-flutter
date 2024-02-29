@@ -143,7 +143,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: <Widget>[
               Padding(
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text("Scan"),
                     onPressed: () => scan(),
                   ),
