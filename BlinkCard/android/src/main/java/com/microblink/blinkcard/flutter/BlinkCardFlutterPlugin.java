@@ -23,6 +23,8 @@ import com.microblink.blinkcard.entities.recognizers.RecognizerBundle;
 import com.microblink.blinkcard.intent.IntentDataTransferMode;
 import com.microblink.blinkcard.uisettings.UISettings;
 import com.microblink.blinkcard.uisettings.ActivityRunner;
+import com.microblink.blinkcard.locale.LanguageUtils;
+
 
 import com.microblink.blinkcard.flutter.recognizers.RecognizerSerializers;
 import com.microblink.blinkcard.flutter.overlays.OverlaySettingsSerializers;
@@ -32,7 +34,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 
-public class MicroblinkFlutterPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
+public class BlinkCardFlutterPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
 
   private static final String CHANNEL = "blinkcard_scanner";
 
@@ -57,7 +59,7 @@ public class MicroblinkFlutterPlugin implements FlutterPlugin, MethodCallHandler
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
   // pre-Flutter-1.12 Android projects.
   public static void registerWith(Registrar registrar) {
-    final MicroblinkFlutterPlugin plugin = new MicroblinkFlutterPlugin();
+    final BlinkCardFlutterPlugin plugin = new BlinkCardFlutterPlugin();
     plugin.setupPlugin(registrar.activity(), registrar.messenger());
     registrar.addActivityResultListener(plugin);
   }
@@ -88,7 +90,11 @@ public class MicroblinkFlutterPlugin implements FlutterPlugin, MethodCallHandler
 
       JSONObject jsonOverlaySettings = new JSONObject((Map)call.argument(ARG_OVERLAY_SETTINGS));
       JSONObject jsonRecognizerCollection = new JSONObject((Map)call.argument(ARG_RECOGNIZER_COLLECTION));
-
+      try {
+          LanguageUtils.setLanguageAndCountry(jsonOverlaySettings.getString("language"),
+                  jsonOverlaySettings.getString("country"),
+                  context);
+      } catch (Exception e) {}
       mRecognizerBundle = RecognizerSerializers.INSTANCE.deserializeRecognizerCollection(jsonRecognizerCollection);
       UISettings uiSettings = OverlaySettingsSerializers.INSTANCE.getOverlaySettings(context, jsonOverlaySettings, mRecognizerBundle);
 
