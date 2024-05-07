@@ -1,6 +1,7 @@
 ## 2.9.1
 
 - Updated the plugin to [Android SDK v2.9.3](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.9.3) and [iOS SDK v2.9.1](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.9.1)
+- This version of the SDK contains the native iOS `BlinkCard.xcframework` with the privacy manifest file (`PrivacyInfo.xcprivacy`).
 
 ### Major API update
 
@@ -14,7 +15,7 @@
     - `license`, the licenses for iOS and Android required to unlock the SDK
 - An example of its usage can be found in the [sample application](https://github.com/blinkcard/blinkcard-flutter/blob/main/sample_files/main.dart) , both for the two-sided and one-sided card scanning. 
 - More information about the DirectAPI scanning can be found here in the native documentation for [Android](https://github.com/BlinkCard/blinkcard-android?tab=readme-ov-file#direct-api) and [iOS](https://github.com/BlinkCard/blinkcard-ios?tab=readme-ov-file#direct-api-processing)
-- We still recommend using our ‘regular’ way of scanning with the camera, as static images can sometimes be in lower-quality which can cause SDK extraction error. It would be best to use the `scanWithDirectApi` method when using the device’s camera is not an option.
+- We still recommend using direct camera scanning, as static images can sometimes be in lower-quality which can cause SDK extraction error. It would be best to use the `scanWithDirectApi` method when using the device’s camera is not an option.
 
 ## 2.9.0
 
