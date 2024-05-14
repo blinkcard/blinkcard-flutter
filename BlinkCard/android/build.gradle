@@ -23,10 +23,15 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.microblink.blinkcard.flutter'
+    }
+
+    compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -34,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation('com.microblink:blinkcard:2.9.0@aar') {
+    implementation('com.microblink:blinkcard:2.9.3@aar') {
         transitive = true
     }
 }

@@ -2,6 +2,8 @@ import 'package:blinkcard_flutter/microblink_scanner.dart';
 import 'package:flutter/material.dart';
 import "dart:convert";
 import "dart:async";
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,12 +19,13 @@ class _MyAppState extends State<MyApp> {
   String _fullDocumentFirstImageBase64 = "";
   String _fullDocumentSecondImageBase64 = "";
 
+  /// BlinkCard scanning with camera
   Future<void> scan() async {
     String license;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTURnMk9EWTNOalE0TURZc0lrTnlaV0YwWldSR2IzSWlPaUkwT1RabFpEQXpaUzAwT0RBeExUUXpZV1F0WVRrMU5DMDBNemMyWlRObU9UTTVNR1FpZlE9Pc2TFqY01wri2M94Fe5sCUOx4F7K3M5TXqNAAJZWrZrJijNfC57WBNQMo7GkQo9Fp6zemUCuWlW0XGzB0RqVzCG1Y8aztpnim/cOYMPi5xoqZm3O3DeSkjmH6qUIyg==";
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=";
     } else if (Theme.of(context).platform == TargetPlatform.android) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTURnMk9EWTNPRGcwT1Rrc0lrTnlaV0YwWldSR2IzSWlPaUkwT1RabFpEQXpaUzAwT0RBeExUUXpZV1F0WVRrMU5DMDBNemMyWlRObU9UTTVNR1FpZlE9PUwdDoL/tBLmwfbOm3/dmw5DjLaYtTz1AGwI1162GlPEct+8fJxPBysGwVZ/8KX0Ygxi7NeroVHPM6IDNhCkmUMDHqELYqH3nK8xm8FPaTjCcN53o3B40SKVLm1Quw==";
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRVMk56VXlNRGs1TURBc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PaUxma82THp6N9XYMdWpqez318I6MV7Wnzk4WxNIv66o0TlUCNfrHmY3BS8UH7YnVV27AMw+LY1tYtZKkOrrRHKGDYLYg6noKpub5Pab7CntTLdsZ0KD/EGvkZS8j6w=";
     } else {
       license = "";
     }
@@ -50,6 +53,126 @@ class _MyAppState extends State<MyApp> {
 
         return;
       }
+    }
+  }
+  
+  /// BlinkCard scanning with DirectAPI that requires both card images.
+  /// Best used for getting the information from both front and backside information from various cards
+  Future<void> directApiTwoSidesScan() async {
+    String license;
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=";
+    } else if (Theme.of(context).platform == TargetPlatform.android) {
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRVMk56VXlNRGs1TURBc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PaUxma82THp6N9XYMdWpqez318I6MV7Wnzk4WxNIv66o0TlUCNfrHmY3BS8UH7YnVV27AMw+LY1tYtZKkOrrRHKGDYLYg6noKpub5Pab7CntTLdsZ0KD/EGvkZS8j6w=";
+    } else {
+      license = "";
+    }
+
+    try {
+      // Get images of both sides of the card with the pickMultiImage method
+      // First select the side where the card number is located and the other back side of the card
+      final images = await ImagePicker().pickMultiImage();
+
+      // Get the first image where the card number is located
+      final firstImage = images[0];
+      if (firstImage == null) return;
+
+      // Convert the first image to base64
+      List<int> firstImageBytes = await firstImage.readAsBytes();
+      String firstImageBase64 = base64Encode(firstImageBytes);
+
+      // Get the image of the second side of the card
+      final secondImage = images[1];
+      if (secondImage == null) return;
+
+      // Convert picked image to base64
+      List<int> secondImageBytes = await secondImage.readAsBytes();
+      String secondImageBase64 = base64Encode(secondImageBytes);
+
+      var cardRecognizer = BlinkCardRecognizer();
+      cardRecognizer.returnFullDocumentImage = true;
+
+      // Pass the images to the scanWithDirectApi method
+      var results = await MicroblinkScanner.scanWithDirectApi(
+          RecognizerCollection([cardRecognizer]), firstImageBase64, secondImageBase64, license);
+
+      if (!mounted) return;
+
+      if (results.length == 0) return;
+      for (var result in results) {
+        if (result is BlinkCardRecognizerResult) {
+          _resultString = getCardResultString(result);
+          setState(() {
+            _resultString = _resultString;
+            _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage ?? "";
+            _fullDocumentSecondImageBase64 = result.secondSideFullDocumentImage ?? "";
+          });
+          return;
+        }
+      }
+    } catch (directApiError) {
+        if (directApiError is PlatformException) {
+          setState(() {
+            _resultString = directApiError.message ?? "Unknown error occurred";
+            _fullDocumentFirstImageBase64 = "";
+            _fullDocumentSecondImageBase64 = "";
+        });
+        } 
+    }
+  }
+
+  /// BlinkCard scanning with DirectAPI that requires one card image.
+  /// Best used for cards that have all of the information on one side, or if the needed information is on one side
+  Future<void> directApiOneSideScan() async {
+    String license;
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=";
+    } else if (Theme.of(context).platform == TargetPlatform.android) {
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRVMk56VXlNRGs1TURBc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PaUxma82THp6N9XYMdWpqez318I6MV7Wnzk4WxNIv66o0TlUCNfrHmY3BS8UH7YnVV27AMw+LY1tYtZKkOrrRHKGDYLYg6noKpub5Pab7CntTLdsZ0KD/EGvkZS8j6w=";
+    } else {
+      license = "";
+    }
+    try {
+      // Pick the image where the card number is located
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      // Convert the picked image to base64
+      List<int> imageBytes = await image.readAsBytes();
+      String imageBase64 = base64Encode(imageBytes);
+
+      var cardRecognizer = BlinkCardRecognizer();
+      cardRecognizer.returnFullDocumentImage = true;
+      cardRecognizer.extractCvv = false;
+      cardRecognizer.extractIban = false;
+      cardRecognizer.extractExpiryDate = false;
+    
+      // Pass the image to the scanWithDirectApi method
+      var results = await MicroblinkScanner.scanWithDirectApi(
+          RecognizerCollection([cardRecognizer]), imageBase64, null, license);
+
+      if (!mounted) return;
+
+      if (results.length == 0) return;
+      for (var result in results) {
+        if (result is BlinkCardRecognizerResult) {
+          _resultString = getCardResultString(result);
+          setState(() {
+            _resultString = _resultString;
+            _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage ?? "";
+            _fullDocumentSecondImageBase64 = "";
+          });
+          return;
+        }
+      }
+    } catch (directApiError) {
+        if (directApiError is PlatformException) {
+          setState(() {
+            _resultString = directApiError.message ?? "Unknown error occurred";
+            _fullDocumentFirstImageBase64 = "";
+            _fullDocumentSecondImageBase64 = "";
+        });
+        } 
     }
   }
 
@@ -101,6 +224,26 @@ class _MyAppState extends State<MyApp> {
     return buildResult(result.toString(), propertyName);
   }
 
+  Future<void> showAlertDialog(BuildContext context,String title, String message) async {
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     Widget fullDocumentFirstImage = Container();
@@ -133,26 +276,61 @@ class _MyAppState extends State<MyApp> {
       );
     }
 
-    return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: const Text("BlinkCard Sample"),
-      ),
-      body: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
+return MaterialApp(
+  home: Scaffold(
+    appBar: AppBar(
+      title: const Text("BlinkCard Sample"),
+    ),
+    body: SingleChildScrollView(
+      padding: EdgeInsets.all(16.0),
+      child: Builder(
+        builder: (BuildContext context) {
+          return Column(
             children: <Widget>[
               Padding(
-                  child: ElevatedButton(
-                    child: Text("Scan"),
-                    onPressed: () => scan(),
-                  ),
-                  padding: EdgeInsets.only(bottom: 16.0)),
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: ElevatedButton(
+                  onPressed: () => scan(),
+                  child: Text("Scan with camera"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showAlertDialog(context, 
+                    'DirectAPI TwoSides instructions',
+                    'Select two images for processing.\nThe first selected image needs to be side where the card number is located.\nThe second image needs to be the other side of the card.')
+                    .then((_) {
+                      directApiTwoSidesScan();
+                    });
+                  },
+                  child: Text("DirectAPI two side scan"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      showAlertDialog(context, 
+                      'DirectAPI OneSide instructions',
+                      'Select one image for processing.\nThe image needs to be side of the card where the card number is located.')
+                      .then((_) {
+                        directApiOneSideScan();
+                      });
+                    },
+                  child: Text("DirectAPI one side scan"),
+                ),
+              ),
               Text(_resultString),
               fullDocumentFirstImage,
               fullDocumentSecondImage,
             ],
-          )),
-    ));
+          );
+        },
+      ),
+    ),
+  ),
+);
   }
 }
