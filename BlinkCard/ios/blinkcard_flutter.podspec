@@ -18,7 +18,7 @@ Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
 
-  s.dependency 'MBBlinkCard', '~> 2.9.2'
+  s.dependency 'MBBlinkCard', '~> 2.9.1'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
