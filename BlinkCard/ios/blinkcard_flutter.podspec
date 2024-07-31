@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'blinkcard_flutter'
-  s.version          = '2.9.2'
+  s.version          = '2.9.3'
   s.summary          = 'Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.'
   s.description      = <<-DESC
 Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.
