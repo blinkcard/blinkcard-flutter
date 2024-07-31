@@ -1,3 +1,10 @@
+## 2.9.3
+
+### Bug fixes
+
+- iOS-specific
+  - Revert dependency update for iOS BlinkCard
+
 ## 2.9.2
 
 ### Bug fixes
