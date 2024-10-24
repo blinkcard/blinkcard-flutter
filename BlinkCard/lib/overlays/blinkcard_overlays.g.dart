@@ -21,7 +21,7 @@ BlinkCardOverlaySettings _$BlinkCardOverlaySettingsFromJson(
       ..showOnboardingInfo = json['showOnboardingInfo'] as bool
       ..showIntroductionDialog = json['showIntroductionDialog'] as bool
       ..onboardingButtonTooltipDelay =
-          json['onboardingButtonTooltipDelay'] as int
+          (json['onboardingButtonTooltipDelay'] as num).toInt()
       ..language = json['language'] as String?
       ..country = json['country'] as String?;
 

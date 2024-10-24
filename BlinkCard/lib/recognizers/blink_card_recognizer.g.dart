@@ -17,7 +17,7 @@ BlinkCardRecognizer _$BlinkCardRecognizerFromJson(Map<String, dynamic> json) =>
       ..extractExpiryDate = json['extractExpiryDate'] as bool
       ..extractIban = json['extractIban'] as bool
       ..extractOwner = json['extractOwner'] as bool
-      ..fullDocumentImageDpi = json['fullDocumentImageDpi'] as int
+      ..fullDocumentImageDpi = (json['fullDocumentImageDpi'] as num).toInt()
       ..fullDocumentImageExtensionFactors = ImageExtensionFactors.fromJson(
           json['fullDocumentImageExtensionFactors'] as Map<String, dynamic>)
       ..handDocumentOverlapThreshold =

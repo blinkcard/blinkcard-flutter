@@ -10,8 +10,8 @@ CardNumberAnonymizationSettings _$CardNumberAnonymizationSettingsFromJson(
         Map<String, dynamic> json) =>
     CardNumberAnonymizationSettings()
       ..mode = $enumDecode(_$BlinkCardAnonymizationModeEnumMap, json['mode'])
-      ..prefixDigitsVisible = json['prefixDigitsVisible'] as int
-      ..suffixDigitsVisible = json['suffixDigitsVisible'] as int;
+      ..prefixDigitsVisible = (json['prefixDigitsVisible'] as num).toInt()
+      ..suffixDigitsVisible = (json['suffixDigitsVisible'] as num).toInt();
 
 Map<String, dynamic> _$CardNumberAnonymizationSettingsToJson(
         CardNumberAnonymizationSettings instance) =>

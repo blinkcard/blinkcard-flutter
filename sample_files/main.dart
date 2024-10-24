@@ -18,17 +18,10 @@ class _MyAppState extends State<MyApp> {
   String _resultString = "";
   String _fullDocumentFirstImageBase64 = "";
   String _fullDocumentSecondImageBase64 = "";
+  String license = "";
 
   /// BlinkCard scanning with camera
   Future<void> scan() async {
-    String license;
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=";
-    } else if (Theme.of(context).platform == TargetPlatform.android) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRVMk56VXlNRGs1TURBc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PaUxma82THp6N9XYMdWpqez318I6MV7Wnzk4WxNIv66o0TlUCNfrHmY3BS8UH7YnVV27AMw+LY1tYtZKkOrrRHKGDYLYg6noKpub5Pab7CntTLdsZ0KD/EGvkZS8j6w=";
-    } else {
-      license = "";
-    }
 
     var cardRecognizer = BlinkCardRecognizer();
     cardRecognizer.returnFullDocumentImage = true;
@@ -59,14 +52,6 @@ class _MyAppState extends State<MyApp> {
   /// BlinkCard scanning with DirectAPI that requires both card images.
   /// Best used for getting the information from both front and backside information from various cards
   Future<void> directApiTwoSidesScan() async {
-    String license;
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=";
-    } else if (Theme.of(context).platform == TargetPlatform.android) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRVMk56VXlNRGs1TURBc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PaUxma82THp6N9XYMdWpqez318I6MV7Wnzk4WxNIv66o0TlUCNfrHmY3BS8UH7YnVV27AMw+LY1tYtZKkOrrRHKGDYLYg6noKpub5Pab7CntTLdsZ0KD/EGvkZS8j6w=";
-    } else {
-      license = "";
-    }
 
     try {
       // Get images of both sides of the card with the pickMultiImage method
@@ -124,14 +109,7 @@ class _MyAppState extends State<MyApp> {
   /// BlinkCard scanning with DirectAPI that requires one card image.
   /// Best used for cards that have all of the information on one side, or if the needed information is on one side
   Future<void> directApiOneSideScan() async {
-    String license;
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=";
-    } else if (Theme.of(context).platform == TargetPlatform.android) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRVMk56VXlNRGs1TURBc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PaUxma82THp6N9XYMdWpqez318I6MV7Wnzk4WxNIv66o0TlUCNfrHmY3BS8UH7YnVV27AMw+LY1tYtZKkOrrRHKGDYLYg6noKpub5Pab7CntTLdsZ0KD/EGvkZS8j6w=";
-    } else {
-      license = "";
-    }
+
     try {
       // Pick the image where the card number is located
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -246,6 +224,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTWprM05qQTRORFF6TWpVc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PdpgwBE8zC2bkURiApcIdb+xhoY+mB/itohh9v8my1Lb39N8IPk/HfYIvDD0m8X/cFME1JJfUJGJUetfARGfzFILLtIt9JPo+T7IalVil7FiBU1llaQFHKjUoryGrQ==";
+    } else if (Theme.of(context).platform == TargetPlatform.android) {
+      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTWprM05qQTRNVEk0TURjc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PfikQ/spr3JjXSCa8CyD2Ia0PMt5PMnGUb7ypnEnXO7QzwQLPl0m0Y1DavWTVjaskpeum+zMui+dHoo+5NS/5Pu25yg5Tu4jWOkXSZkYUh/XSmvVEfSG3Mr38VOZtQ==";
+    } else {
+      license = "";
+    }
+
     Widget fullDocumentFirstImage = Container();
     if (_fullDocumentFirstImageBase64 != null &&
         _fullDocumentFirstImageBase64 != "") {

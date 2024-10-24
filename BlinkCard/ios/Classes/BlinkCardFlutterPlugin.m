@@ -59,8 +59,9 @@ static NSString* const kScanWithDirectApiMethodName = @"scanWithDirectApi";
         NSDictionary *overlaySettingsDict = call.arguments[@"overlaySettings"];
         NSDictionary *licenseKeyDict = call.arguments[@"license"];
 
-        [self setLicenseKey:licenseKeyDict];
-        [self scanWith:recognizerCollectionDict overlaySettingsDict:overlaySettingsDict];
+        if ([self setLicenseKey:licenseKeyDict]) {
+            [self scanWith:recognizerCollectionDict overlaySettingsDict:overlaySettingsDict];
+        }
     }
     else if ([kScanWithDirectApiMethodName isEqualToString:call.method]) {
         NSDictionary *recognizerCollectionDict = call.arguments[@"recognizerCollection"];
@@ -68,15 +69,17 @@ static NSString* const kScanWithDirectApiMethodName = @"scanWithDirectApi";
         self.backImageBase64String = call.arguments[@"backImage"];
         NSDictionary *licenseKeyDict = call.arguments[@"license"];
 
-        [self setLicenseKey:licenseKeyDict];
-        [self scanWithDirectApi:recognizerCollectionDict frontImageString:frontImageBase64String];
+        if ([self setLicenseKey:licenseKeyDict]) {
+            [self scanWithDirectApi:recognizerCollectionDict frontImageString:frontImageBase64String];
+        }
     }
     else {
         result(FlutterMethodNotImplemented);
     }
 }
 
-- (void)setLicenseKey:(NSDictionary *)licenseKeyDict {
+- (BOOL)setLicenseKey:(NSDictionary *)licenseKeyDict {
+    __block BOOL isLicenseKeyValid = YES;
     licenseKeyDict = [self sanitizeDictionary:licenseKeyDict];
 
     if ([licenseKeyDict objectForKey:@"showTrialLicenseWarning"] != nil) {
@@ -88,11 +91,17 @@ static NSString* const kScanWithDirectApiMethodName = @"scanWithDirectApi";
     if ([licenseKeyDict objectForKey:@"licensee"] != nil) {
         NSString *licensee = [licenseKeyDict objectForKey:@"licensee"];
         [[MBCMicroblinkSDK sharedInstance] setLicenseKey:iosLicense andLicensee:licensee errorCallback:^(MBCLicenseError licenseError) {
+            self.result([FlutterError errorWithCode:@"" message:[self licenseErrorToString:licenseError] details:nil]);
+            isLicenseKeyValid = NO;
         }];
     } else {
         [[MBCMicroblinkSDK sharedInstance] setLicenseKey:iosLicense errorCallback:^(MBCLicenseError licenseError) {
+            self.result([FlutterError errorWithCode:@"" message:[self licenseErrorToString:licenseError] details:nil]);
+            isLicenseKeyValid = NO;
         }];
     }
+    
+    return isLicenseKeyValid;
 }
 
 -(void)setLanguage:(NSDictionary *)overlaySettingsDict {
@@ -248,6 +257,38 @@ static NSString* const kScanWithDirectApiMethodName = @"scanWithDirectApi";
     self.result = nil;
     self.recognizerCollection = nil;
     self.recognizerRunner = nil;
+}
+
+- (NSString *)licenseErrorToString:(MBCLicenseError)licenseError {
+    switch(licenseError) {
+        case MBCLicenseErrorNetworkRequired:
+            return @"iOS license error: Network required";
+            break;
+        case MBCLicenseErrorUnableToDoRemoteLicenceCheck:
+            return @"iOS license error: Unable to do remote licence check";
+            break;
+        case MBCLicenseErrorLicenseIsLocked:
+            return @"iOS license error: License is locked";
+            break;
+        case MBCLicenseErrorLicenseCheckFailed:
+            return @"iOS license error: License check failed";
+            break;
+        case MBCLicenseErrorInvalidLicense:
+            return @"iOS license error: Invalid license";
+            break;
+        case MBCLicenseErrorPermissionExpired:
+            return @"iOS license error: Permission expired";
+            break;
+        case MBCLicenseErrorPayloadCorrupted:
+            return @"iOS license error: Payload corrupted";
+            break;
+        case MBCLicenseErrorPayloadSignatureVerificationFailed:
+            return @"iOS license error: Payload signature verification failed";
+            break;
+        case MBCLicenseErrorIncorrectTokenState:
+            return @"iOS license error: Incorrect token state";
+            break;
+    }
 }
 
 @end
