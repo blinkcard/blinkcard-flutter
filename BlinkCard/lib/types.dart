@@ -249,3 +249,37 @@ enum DataMatchState {
     /// Data match.
     Success
 }
+
+/// Defines possible Android device camera video resolution preset 
+enum AndroidCameraResolutionPreset {
+    /// Will choose camera video resolution which is best for current device.
+    @JsonValue(0) PresetDefault,
+    /// Attempts to choose camera video resolution as closely as 480p.
+    @JsonValue(1) Preset480p,
+    /// Attempts to choose camera video resolution as closely as 720p.
+    @JsonValue(2) Preset720p,
+    /// Attempts to choose camera video resolution as closely as 1080p.
+    @JsonValue(3) Preset1080p,
+    /// Attempts to choose camera video resolution as closely as 2160p.
+    @JsonValue(4) Preset2160p,
+    /// Will choose max available camera video resolution.
+    @JsonValue(5) PresetMaxAvailable
+}
+
+/// Define possible iOS device camera video resolution preset 
+enum iOSCameraResolutionPreset {
+    /// 480p video will always be used.
+    @JsonValue(0) Preset480p,
+    /// 720p video will always be used.
+    @JsonValue(1) Preset720p,
+    /// 1080p video will always be used.
+    @JsonValue(2) Preset1080p,
+    /// 4K video will always be used.
+    @JsonValue(3) Preset4K,
+    /// The library will calculate optimal resolution based on the use case and device used.
+    @JsonValue(4) PresetOptimal,
+    /// Device's maximal video resolution will be used.
+    @JsonValue(5) PresetMax,
+    /// Device's photo preview resolution will be used.
+    @JsonValue(6) PresetPhoto
+}
