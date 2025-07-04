@@ -7,9 +7,7 @@ part of 'overlay_settings.dart';
 // **************************************************************************
 
 OverlaySettings _$OverlaySettingsFromJson(Map<String, dynamic> json) =>
-    OverlaySettings(
-      json['overlaySettingsType'] as String?,
-    )
+    OverlaySettings(json['overlaySettingsType'] as String?)
       ..useFrontCamera = json['useFrontCamera'] as bool
       ..enableBeep = json['enableBeep'] as bool
       ..language = json['language'] as String?

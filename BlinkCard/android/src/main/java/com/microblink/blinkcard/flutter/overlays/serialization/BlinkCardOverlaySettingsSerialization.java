@@ -52,6 +52,10 @@ public final class BlinkCardOverlaySettingsSerialization implements OverlaySetti
         if (errorCardTooCloseToEdge != null) {
             overlayStringsBuilder.setErrorCardTooCloseToEdge(errorCardTooCloseToEdge);
         }
+        String scanningWrongSideMessage = getStringFromJSONObject(jsonUISettings, "scanningWrongSideMessage");
+        if (scanningWrongSideMessage != null) {
+            overlayStringsBuilder.setErrorScanningWrongSide(scanningWrongSideMessage);
+        }
 
         settings.setStrings(overlayStringsBuilder.build());
         return settings;

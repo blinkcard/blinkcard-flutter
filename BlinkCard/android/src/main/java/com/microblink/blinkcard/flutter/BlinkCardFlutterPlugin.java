@@ -18,7 +18,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import com.microblink.blinkcard.MicroblinkSDK;
 import com.microblink.blinkcard.entities.recognizers.Recognizer;
@@ -70,14 +69,6 @@ public class BlinkCardFlutterPlugin implements FlutterPlugin, MethodCallHandler,
   private Activity activity;
 
   private Result pendingResult;
-
-  // This static function is optional and equivalent to onAttachedToEngine. It supports the old
-  // pre-Flutter-1.12 Android projects.
-  public static void registerWith(Registrar registrar) {
-    final BlinkCardFlutterPlugin plugin = new BlinkCardFlutterPlugin();
-    plugin.setupPlugin(registrar.activity(), registrar.messenger());
-    registrar.addActivityResultListener(plugin);
-  }
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
