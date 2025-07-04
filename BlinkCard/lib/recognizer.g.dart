@@ -6,14 +6,11 @@ part of 'recognizer.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Recognizer _$RecognizerFromJson(Map<String, dynamic> json) => Recognizer(
-      json['recognizerType'] as String,
-    );
+Recognizer _$RecognizerFromJson(Map<String, dynamic> json) =>
+    Recognizer(json['recognizerType'] as String);
 
 Map<String, dynamic> _$RecognizerToJson(Recognizer instance) =>
-    <String, dynamic>{
-      'recognizerType': instance.recognizerType,
-    };
+    <String, dynamic>{'recognizerType': instance.recognizerType};
 
 RecognizerResult _$RecognizerResultFromJson(Map<String, dynamic> json) =>
     RecognizerResult(
@@ -33,20 +30,21 @@ const _$RecognizerResultStateEnumMap = {
 };
 
 RecognizerCollection _$RecognizerCollectionFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     RecognizerCollection(
-      (json['recognizerArray'] as List<dynamic>)
-          .map((e) => Recognizer.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    )
+        (json['recognizerArray'] as List<dynamic>)
+            .map((e) => Recognizer.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      )
       ..allowMultipleResults = json['allowMultipleResults'] as bool
       ..milisecondsBeforeTimeout =
           (json['milisecondsBeforeTimeout'] as num).toInt();
 
 Map<String, dynamic> _$RecognizerCollectionToJson(
-        RecognizerCollection instance) =>
-    <String, dynamic>{
-      'recognizerArray': instance.recognizerArray,
-      'allowMultipleResults': instance.allowMultipleResults,
-      'milisecondsBeforeTimeout': instance.milisecondsBeforeTimeout,
-    };
+  RecognizerCollection instance,
+) => <String, dynamic>{
+  'recognizerArray': instance.recognizerArray,
+  'allowMultipleResults': instance.allowMultipleResults,
+  'milisecondsBeforeTimeout': instance.milisecondsBeforeTimeout,
+};

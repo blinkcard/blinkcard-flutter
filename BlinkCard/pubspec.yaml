@@ -1,12 +1,11 @@
 name: blinkcard_flutter
 description: Flutter plugin for BlinkCard, SDK for scanning and OCR of various credit cards.
-version: 2.10.0
-author: Microblink
+version: 2.11.1
 homepage: https://microblink.com
 
 environment:
-  sdk: ">=2.12.0 <4.0.0"
-  flutter: "1.12.0 <3.24.2"
+  sdk: ^3.7.2
+  flutter: '>=3.3.0'
 
 dependencies:
   flutter:
@@ -16,6 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^5.0.0
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
 

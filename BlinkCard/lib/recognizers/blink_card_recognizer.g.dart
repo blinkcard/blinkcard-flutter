@@ -12,47 +12,53 @@ BlinkCardRecognizer _$BlinkCardRecognizerFromJson(Map<String, dynamic> json) =>
       ..allowBlurFilter = json['allowBlurFilter'] as bool
       ..allowInvalidCardNumber = json['allowInvalidCardNumber'] as bool
       ..anonymizationSettings = BlinkCardAnonymizationSettings.fromJson(
-          json['anonymizationSettings'] as Map<String, dynamic>)
+        json['anonymizationSettings'] as Map<String, dynamic>,
+      )
       ..extractCvv = json['extractCvv'] as bool
       ..extractExpiryDate = json['extractExpiryDate'] as bool
       ..extractIban = json['extractIban'] as bool
       ..extractOwner = json['extractOwner'] as bool
       ..fullDocumentImageDpi = (json['fullDocumentImageDpi'] as num).toInt()
       ..fullDocumentImageExtensionFactors = ImageExtensionFactors.fromJson(
-          json['fullDocumentImageExtensionFactors'] as Map<String, dynamic>)
+        json['fullDocumentImageExtensionFactors'] as Map<String, dynamic>,
+      )
       ..handDocumentOverlapThreshold =
           (json['handDocumentOverlapThreshold'] as num).toDouble()
       ..handScaleThreshold = (json['handScaleThreshold'] as num).toDouble()
       ..paddingEdge = (json['paddingEdge'] as num).toDouble()
       ..photocopyAnalysisMatchLevel = $enumDecode(
-          _$BlinkCardMatchLevelEnumMap, json['photocopyAnalysisMatchLevel'])
+        _$BlinkCardMatchLevelEnumMap,
+        json['photocopyAnalysisMatchLevel'],
+      )
       ..returnFullDocumentImage = json['returnFullDocumentImage'] as bool
       ..screenAnalysisMatchLevel = $enumDecode(
-          _$BlinkCardMatchLevelEnumMap, json['screenAnalysisMatchLevel']);
+        _$BlinkCardMatchLevelEnumMap,
+        json['screenAnalysisMatchLevel'],
+      );
 
 Map<String, dynamic> _$BlinkCardRecognizerToJson(
-        BlinkCardRecognizer instance) =>
-    <String, dynamic>{
-      'recognizerType': instance.recognizerType,
-      'allowBlurFilter': instance.allowBlurFilter,
-      'allowInvalidCardNumber': instance.allowInvalidCardNumber,
-      'anonymizationSettings': instance.anonymizationSettings,
-      'extractCvv': instance.extractCvv,
-      'extractExpiryDate': instance.extractExpiryDate,
-      'extractIban': instance.extractIban,
-      'extractOwner': instance.extractOwner,
-      'fullDocumentImageDpi': instance.fullDocumentImageDpi,
-      'fullDocumentImageExtensionFactors':
-          instance.fullDocumentImageExtensionFactors,
-      'handDocumentOverlapThreshold': instance.handDocumentOverlapThreshold,
-      'handScaleThreshold': instance.handScaleThreshold,
-      'paddingEdge': instance.paddingEdge,
-      'photocopyAnalysisMatchLevel':
-          _$BlinkCardMatchLevelEnumMap[instance.photocopyAnalysisMatchLevel]!,
-      'returnFullDocumentImage': instance.returnFullDocumentImage,
-      'screenAnalysisMatchLevel':
-          _$BlinkCardMatchLevelEnumMap[instance.screenAnalysisMatchLevel]!,
-    };
+  BlinkCardRecognizer instance,
+) => <String, dynamic>{
+  'recognizerType': instance.recognizerType,
+  'allowBlurFilter': instance.allowBlurFilter,
+  'allowInvalidCardNumber': instance.allowInvalidCardNumber,
+  'anonymizationSettings': instance.anonymizationSettings,
+  'extractCvv': instance.extractCvv,
+  'extractExpiryDate': instance.extractExpiryDate,
+  'extractIban': instance.extractIban,
+  'extractOwner': instance.extractOwner,
+  'fullDocumentImageDpi': instance.fullDocumentImageDpi,
+  'fullDocumentImageExtensionFactors':
+      instance.fullDocumentImageExtensionFactors,
+  'handDocumentOverlapThreshold': instance.handDocumentOverlapThreshold,
+  'handScaleThreshold': instance.handScaleThreshold,
+  'paddingEdge': instance.paddingEdge,
+  'photocopyAnalysisMatchLevel':
+      _$BlinkCardMatchLevelEnumMap[instance.photocopyAnalysisMatchLevel]!,
+  'returnFullDocumentImage': instance.returnFullDocumentImage,
+  'screenAnalysisMatchLevel':
+      _$BlinkCardMatchLevelEnumMap[instance.screenAnalysisMatchLevel]!,
+};
 
 const _$BlinkCardMatchLevelEnumMap = {
   BlinkCardMatchLevel.Disabled: 0,

@@ -7,7 +7,8 @@ part of 'blinkcard_overlays.dart';
 // **************************************************************************
 
 BlinkCardOverlaySettings _$BlinkCardOverlaySettingsFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     BlinkCardOverlaySettings()
       ..overlaySettingsType = json['overlaySettingsType'] as String?
       ..useFrontCamera = json['useFrontCamera'] as bool
@@ -18,6 +19,7 @@ BlinkCardOverlaySettings _$BlinkCardOverlaySettingsFromJson(
       ..errorMoveCloser = json['errorMoveCloser'] as String?
       ..errorMoveFarther = json['errorMoveFarther'] as String?
       ..errorCardTooCloseToEdge = json['errorCardTooCloseToEdge'] as String?
+      ..scanningWrongSideMessage = json['scanningWrongSideMessage'] as String?
       ..showOnboardingInfo = json['showOnboardingInfo'] as bool
       ..showIntroductionDialog = json['showIntroductionDialog'] as bool
       ..onboardingButtonTooltipDelay =
@@ -26,20 +28,21 @@ BlinkCardOverlaySettings _$BlinkCardOverlaySettingsFromJson(
       ..country = json['country'] as String?;
 
 Map<String, dynamic> _$BlinkCardOverlaySettingsToJson(
-        BlinkCardOverlaySettings instance) =>
-    <String, dynamic>{
-      'overlaySettingsType': instance.overlaySettingsType,
-      'useFrontCamera': instance.useFrontCamera,
-      'enableBeep': instance.enableBeep,
-      'firstSideInstructions': instance.firstSideInstructions,
-      'flipCardInstructions': instance.flipCardInstructions,
-      'showFlashlightWarning': instance.showFlashlightWarning,
-      'errorMoveCloser': instance.errorMoveCloser,
-      'errorMoveFarther': instance.errorMoveFarther,
-      'errorCardTooCloseToEdge': instance.errorCardTooCloseToEdge,
-      'showOnboardingInfo': instance.showOnboardingInfo,
-      'showIntroductionDialog': instance.showIntroductionDialog,
-      'onboardingButtonTooltipDelay': instance.onboardingButtonTooltipDelay,
-      'language': instance.language,
-      'country': instance.country,
-    };
+  BlinkCardOverlaySettings instance,
+) => <String, dynamic>{
+  'overlaySettingsType': instance.overlaySettingsType,
+  'useFrontCamera': instance.useFrontCamera,
+  'enableBeep': instance.enableBeep,
+  'firstSideInstructions': instance.firstSideInstructions,
+  'flipCardInstructions': instance.flipCardInstructions,
+  'showFlashlightWarning': instance.showFlashlightWarning,
+  'errorMoveCloser': instance.errorMoveCloser,
+  'errorMoveFarther': instance.errorMoveFarther,
+  'errorCardTooCloseToEdge': instance.errorCardTooCloseToEdge,
+  'scanningWrongSideMessage': instance.scanningWrongSideMessage,
+  'showOnboardingInfo': instance.showOnboardingInfo,
+  'showIntroductionDialog': instance.showIntroductionDialog,
+  'onboardingButtonTooltipDelay': instance.onboardingButtonTooltipDelay,
+  'language': instance.language,
+  'country': instance.country,
+};

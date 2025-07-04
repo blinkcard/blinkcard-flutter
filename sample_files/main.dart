@@ -22,14 +22,16 @@ class _MyAppState extends State<MyApp> {
 
   /// BlinkCard scanning with camera
   Future<void> scan() async {
-
     var cardRecognizer = BlinkCardRecognizer();
     cardRecognizer.returnFullDocumentImage = true;
 
     BlinkCardOverlaySettings settings = BlinkCardOverlaySettings();
 
     var results = await MicroblinkScanner.scanWithCamera(
-        RecognizerCollection([cardRecognizer]), settings, license);
+      RecognizerCollection([cardRecognizer]),
+      settings,
+      license,
+    );
 
     if (!mounted) return;
 
@@ -37,22 +39,23 @@ class _MyAppState extends State<MyApp> {
     for (var result in results) {
       if (result is BlinkCardRecognizerResult) {
         _resultString = getCardResultString(result);
-        
+
         setState(() {
           _resultString = _resultString;
-          _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage ?? "";
-          _fullDocumentSecondImageBase64 = result.secondSideFullDocumentImage ?? "";
+          _fullDocumentFirstImageBase64 =
+              result.firstSideFullDocumentImage ?? "";
+          _fullDocumentSecondImageBase64 =
+              result.secondSideFullDocumentImage ?? "";
         });
 
         return;
       }
     }
   }
-  
+
   /// BlinkCard scanning with DirectAPI that requires both card images.
   /// Best used for getting the information from both front and backside information from various cards
   Future<void> directApiTwoSidesScan() async {
-
     try {
       // Get images of both sides of the card with the pickMultiImage method
       // First select the side where the card number is located and the other back side of the card
@@ -79,7 +82,11 @@ class _MyAppState extends State<MyApp> {
 
       // Pass the images to the scanWithDirectApi method
       var results = await MicroblinkScanner.scanWithDirectApi(
-          RecognizerCollection([cardRecognizer]), firstImageBase64, secondImageBase64, license);
+        RecognizerCollection([cardRecognizer]),
+        firstImageBase64,
+        secondImageBase64,
+        license,
+      );
 
       if (!mounted) return;
 
@@ -89,27 +96,28 @@ class _MyAppState extends State<MyApp> {
           _resultString = getCardResultString(result);
           setState(() {
             _resultString = _resultString;
-            _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage ?? "";
-            _fullDocumentSecondImageBase64 = result.secondSideFullDocumentImage ?? "";
+            _fullDocumentFirstImageBase64 =
+                result.firstSideFullDocumentImage ?? "";
+            _fullDocumentSecondImageBase64 =
+                result.secondSideFullDocumentImage ?? "";
           });
           return;
         }
       }
     } catch (directApiError) {
-        if (directApiError is PlatformException) {
-          setState(() {
-            _resultString = directApiError.message ?? "Unknown error occurred";
-            _fullDocumentFirstImageBase64 = "";
-            _fullDocumentSecondImageBase64 = "";
+      if (directApiError is PlatformException) {
+        setState(() {
+          _resultString = directApiError.message ?? "Unknown error occurred";
+          _fullDocumentFirstImageBase64 = "";
+          _fullDocumentSecondImageBase64 = "";
         });
-        } 
+      }
     }
   }
 
   /// BlinkCard scanning with DirectAPI that requires one card image.
   /// Best used for cards that have all of the information on one side, or if the needed information is on one side
   Future<void> directApiOneSideScan() async {
-
     try {
       // Pick the image where the card number is located
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -124,10 +132,14 @@ class _MyAppState extends State<MyApp> {
       cardRecognizer.extractCvv = false;
       cardRecognizer.extractIban = false;
       cardRecognizer.extractExpiryDate = false;
-    
+
       // Pass the image to the scanWithDirectApi method
       var results = await MicroblinkScanner.scanWithDirectApi(
-          RecognizerCollection([cardRecognizer]), imageBase64, null, license);
+        RecognizerCollection([cardRecognizer]),
+        imageBase64,
+        null,
+        license,
+      );
 
       if (!mounted) return;
 
@@ -137,33 +149,40 @@ class _MyAppState extends State<MyApp> {
           _resultString = getCardResultString(result);
           setState(() {
             _resultString = _resultString;
-            _fullDocumentFirstImageBase64 = result.firstSideFullDocumentImage ?? "";
+            _fullDocumentFirstImageBase64 =
+                result.firstSideFullDocumentImage ?? "";
             _fullDocumentSecondImageBase64 = "";
           });
           return;
         }
       }
     } catch (directApiError) {
-        if (directApiError is PlatformException) {
-          setState(() {
-            _resultString = directApiError.message ?? "Unknown error occurred";
-            _fullDocumentFirstImageBase64 = "";
-            _fullDocumentSecondImageBase64 = "";
+      if (directApiError is PlatformException) {
+        setState(() {
+          _resultString = directApiError.message ?? "Unknown error occurred";
+          _fullDocumentFirstImageBase64 = "";
+          _fullDocumentSecondImageBase64 = "";
         });
-        } 
+      }
     }
   }
 
   String getCardResultString(BlinkCardRecognizerResult result) {
     return buildResult(result.cardNumber, 'Card Number') +
-      buildResult(result.cardNumberPrefix, 'Card Number Prefix') +
-      buildResult(result.iban, 'IBAN') +
-      buildResult(result.cvv, 'CVV') +
-      buildResult(result.owner, 'Owner') +
-      buildResult(result.cardNumberValid.toString(), 'Card Number Valid') +
-      buildDateResult(result.expiryDate, 'Expiry date') + 
-      buildLivenessResult(result.documentLivenessCheck?.front, 'Front side liveness checks') +
-      buildLivenessResult(result.documentLivenessCheck?.back, 'Back side liveness checks');
+        buildResult(result.cardNumberPrefix, 'Card Number Prefix') +
+        buildResult(result.iban, 'IBAN') +
+        buildResult(result.cvv, 'CVV') +
+        buildResult(result.owner, 'Owner') +
+        buildResult(result.cardNumberValid.toString(), 'Card Number Valid') +
+        buildDateResult(result.expiryDate, 'Expiry date') +
+        buildLivenessResult(
+          result.documentLivenessCheck?.front,
+          'Front side liveness checks',
+        ) +
+        buildLivenessResult(
+          result.documentLivenessCheck?.back,
+          'Back side liveness checks',
+        );
   }
 
   String buildResult(String? result, String propertyName) {
@@ -179,10 +198,16 @@ class _MyAppState extends State<MyApp> {
       return "";
     }
 
-    return "\n" + propertyName + ": " + "\n" +
-      buildResult(result.handPresenceCheck.toString(), 'Hand presence check') +
-      buildResult(result.photocopyCheck.toString(), 'Photocopy check') +
-      buildResult(result.screenCheck.toString(), 'Screen check');
+    return "\n" +
+        propertyName +
+        ": " +
+        "\n" +
+        buildResult(
+          result.handPresenceCheck.toString(),
+          'Hand presence check',
+        ) +
+        buildResult(result.photocopyCheck.toString(), 'Photocopy check') +
+        buildResult(result.screenCheck.toString(), 'Screen check');
   }
 
   String buildDateResult(Date? result, String propertyName) {
@@ -191,7 +216,9 @@ class _MyAppState extends State<MyApp> {
     }
 
     return buildResult(
-        "${result.day}.${result.month}.${result.year}", propertyName);
+      "${result.day}.${result.month}.${result.year}",
+      propertyName,
+    );
   }
 
   String buildIntResult(int? result, String propertyName) {
@@ -202,33 +229,38 @@ class _MyAppState extends State<MyApp> {
     return buildResult(result.toString(), propertyName);
   }
 
-  Future<void> showAlertDialog(BuildContext context,String title, String message) async {
-  await showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('OK'),
-          ),
-        ],
-      );
-    },
-  );
-}
+  Future<void> showAlertDialog(
+    BuildContext context,
+    String title,
+    String message,
+  ) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTWprM05qQTRORFF6TWpVc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PdpgwBE8zC2bkURiApcIdb+xhoY+mB/itohh9v8my1Lb39N8IPk/HfYIvDD0m8X/cFME1JJfUJGJUetfARGfzFILLtIt9JPo+T7IalVil7FiBU1llaQFHKjUoryGrQ==";
+      license =
+          "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTlRFMU5ERXpORFk1TWpjc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PTq74d7HAcUKlohgXiu/wccsKLl2cqELCmZkuUvDhefRlCY0scVq70z3J0Uvha1H4AUBzcDG+pc+eSwp5Is1Ik/R0Dur39LzgumUB59v5ognxT8Lq0qLWqePF2DoGg==";
     } else if (Theme.of(context).platform == TargetPlatform.android) {
-      license = "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTWprM05qQTRNVEk0TURjc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PfikQ/spr3JjXSCa8CyD2Ia0PMt5PMnGUb7ypnEnXO7QzwQLPl0m0Y1DavWTVjaskpeum+zMui+dHoo+5NS/5Pu25yg5Tu4jWOkXSZkYUh/XSmvVEfSG3Mr38VOZtQ==";
+      license =
+          "sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTlRFMU5ERXpPRGN5TVRjc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PUmqAgyL6GeI/BwYSwBebba3EJYNOHriDvnMLJ7ii+WRpcXhDfSp3bGJNPOm7mvs8q9OTbhfTvDXkKOdzBz+znguWy3kamfJ8+NpzBynCZHLnS4xP/umEYAh4nuaiw==";
     } else {
       license = "";
     }
@@ -243,7 +275,7 @@ class _MyAppState extends State<MyApp> {
             Base64Decoder().convert(_fullDocumentFirstImageBase64),
             height: 180,
             width: 350,
-          )
+          ),
         ],
       );
     }
@@ -258,66 +290,66 @@ class _MyAppState extends State<MyApp> {
             Base64Decoder().convert(_fullDocumentSecondImageBase64),
             height: 180,
             width: 350,
-          )
+          ),
         ],
       );
     }
 
-return MaterialApp(
-  home: Scaffold(
-    appBar: AppBar(
-      title: const Text("BlinkCard Sample"),
-    ),
-    body: SingleChildScrollView(
-      padding: EdgeInsets.all(16.0),
-      child: Builder(
-        builder: (BuildContext context) {
-          return Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: ElevatedButton(
-                  onPressed: () => scan(),
-                  child: Text("Scan with camera"),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    showAlertDialog(context, 
-                    'DirectAPI TwoSides instructions',
-                    'Select two images for processing.\nThe first selected image needs to be side where the card number is located.\nThe second image needs to be the other side of the card.')
-                    .then((_) {
-                      directApiTwoSidesScan();
-                    });
-                  },
-                  child: Text("DirectAPI two side scan"),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      showAlertDialog(context, 
-                      'DirectAPI OneSide instructions',
-                      'Select one image for processing.\nThe image needs to be side of the card where the card number is located.')
-                      .then((_) {
-                        directApiOneSideScan();
-                      });
-                    },
-                  child: Text("DirectAPI one side scan"),
-                ),
-              ),
-              Text(_resultString),
-              fullDocumentFirstImage,
-              fullDocumentSecondImage,
-            ],
-          );
-        },
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("BlinkCard Sample")),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Builder(
+            builder: (BuildContext context) {
+              return Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () => scan(),
+                      child: Text("Scan with camera"),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showAlertDialog(
+                          context,
+                          'DirectAPI TwoSides instructions',
+                          'Select two images for processing.\nThe first selected image needs to be side where the card number is located.\nThe second image needs to be the other side of the card.',
+                        ).then((_) {
+                          directApiTwoSidesScan();
+                        });
+                      },
+                      child: Text("DirectAPI two side scan"),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showAlertDialog(
+                          context,
+                          'DirectAPI OneSide instructions',
+                          'Select one image for processing.\nThe image needs to be side of the card where the card number is located.',
+                        ).then((_) {
+                          directApiOneSideScan();
+                        });
+                      },
+                      child: Text("DirectAPI one side scan"),
+                    ),
+                  ),
+                  Text(_resultString),
+                  fullDocumentFirstImage,
+                  fullDocumentSecondImage,
+                ],
+              );
+            },
+          ),
+        ),
       ),
-    ),
-  ),
-);
+    );
   }
 }
