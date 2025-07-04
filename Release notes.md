@@ -1,3 +1,24 @@
+## 2.11.1
+
+- Updated to [Android SDK v2.11.1](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.1) and [iOS SDK v2.11.1](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.1)
+
+### Improvements
+- Improved data extraction accuracy across all supported card types
+
+### Behavior Changes
+- Improved extraction of the owner field
+- Only digits are allowed in card number, CVV, and date of expiry results
+- Only letters are allowed in owner field result
+
+### UI changes
+- Added success checkmark after a successful first side scan
+- Added an error state when scanning the wrong side of the card
+    - Added new `scanningWrongSideMessage` property in the `BlinkCardOverlaySettings`.
+- Minor changes in scanning instruction messages
+
+### Bug fixes
+- Fixed compatibility issues with Flutter v3.29
+
 ## 2.10.0
 
 - Updated to [Android SDK v2.10.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.10.0) and [iOS SDK v2.10.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.10.0)
