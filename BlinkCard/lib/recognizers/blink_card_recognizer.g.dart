@@ -34,6 +34,10 @@ BlinkCardRecognizer _$BlinkCardRecognizerFromJson(Map<String, dynamic> json) =>
       ..screenAnalysisMatchLevel = $enumDecode(
         _$BlinkCardMatchLevelEnumMap,
         json['screenAnalysisMatchLevel'],
+      )
+      ..tiltDetectionLevel = $enumDecode(
+        _$BlinkCardDetectionLevelEnumMap,
+        json['tiltDetectionLevel'],
       );
 
 Map<String, dynamic> _$BlinkCardRecognizerToJson(
@@ -58,6 +62,8 @@ Map<String, dynamic> _$BlinkCardRecognizerToJson(
   'returnFullDocumentImage': instance.returnFullDocumentImage,
   'screenAnalysisMatchLevel':
       _$BlinkCardMatchLevelEnumMap[instance.screenAnalysisMatchLevel]!,
+  'tiltDetectionLevel':
+      _$BlinkCardDetectionLevelEnumMap[instance.tiltDetectionLevel]!,
 };
 
 const _$BlinkCardMatchLevelEnumMap = {
@@ -72,4 +78,11 @@ const _$BlinkCardMatchLevelEnumMap = {
   BlinkCardMatchLevel.Level8: 8,
   BlinkCardMatchLevel.Level9: 9,
   BlinkCardMatchLevel.Level10: 10,
+};
+
+const _$BlinkCardDetectionLevelEnumMap = {
+  BlinkCardDetectionLevel.Off: 0,
+  BlinkCardDetectionLevel.Low: 1,
+  BlinkCardDetectionLevel.Mid: 2,
+  BlinkCardDetectionLevel.High: 3,
 };
