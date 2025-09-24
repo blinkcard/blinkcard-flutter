@@ -90,6 +90,13 @@
     }
     
     {
+        id keepCardParallelMessage = [jsonOverlaySettings valueForKey:@"keepCardParallelMessage"];
+        if (keepCardParallelMessage != nil) {
+            sett.keepCardParallelMessage = (NSString *)keepCardParallelMessage;
+        }
+    }
+    
+    {
         id showOnboardingInfo = [jsonOverlaySettings valueForKey:@"showOnboardingInfo"];
         if (showOnboardingInfo != nil) {
             sett.showOnboardingInfo = [showOnboardingInfo boolValue];
