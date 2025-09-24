@@ -56,7 +56,10 @@ public final class BlinkCardOverlaySettingsSerialization implements OverlaySetti
         if (scanningWrongSideMessage != null) {
             overlayStringsBuilder.setErrorScanningWrongSide(scanningWrongSideMessage);
         }
-
+        String keepCardParallelMessage = getStringFromJSONObject(jsonUISettings, "keepCardParallelMessage");
+        if (keepCardParallelMessage != null) {
+            overlayStringsBuilder.setErrorCameraAngleTooSteep(keepCardParallelMessage);
+        }
         settings.setStrings(overlayStringsBuilder.build());
         return settings;
     }
