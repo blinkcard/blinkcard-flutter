@@ -27,6 +27,7 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         recognizer.setPhotocopyAnalysisMatchLevel(BlinkCardSerializationUtils.deserializeMatchLevel(jsonObject, "photocopyAnalysisMatchLevel"));
         recognizer.setReturnFullDocumentImage(jsonObject.optBoolean("returnFullDocumentImage", false));
         recognizer.setScreenAnalysisMatchLevel(BlinkCardSerializationUtils.deserializeMatchLevel(jsonObject, "screenAnalysisMatchLevel"));
+        recognizer.setTiltDetectionLevel(BlinkCardSerializationUtils.deserializeDetectionLevel(jsonObject, "tiltDetectionLevel"));
         return recognizer;
     }
 

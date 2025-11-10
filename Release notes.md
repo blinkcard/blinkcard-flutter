@@ -1,3 +1,18 @@
+## 2.12.0
+- Updated to [Android SDK v2.12.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.12.0) and [iOS SDK v2.12.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.12.0)
+
+### Improvements
+- Integrated a tilt detector that will improve the quality of captured images and the extracted data
+    - Added `tiltDetectionLevel` in `BlinkCardRecognizer`, which defines the level of allowed detected tilt of the document in the image.
+    - New UI message `Keep card parallel to phone` when the camera angle is too steep. It is available in the `BlinkCardOverlaySettings`
+- Integrated a stability check to ensure consecutive images for extraction are consistent
+- Improved accuracy of owner field extraction
+
+### Bug fixes
+- Fixed issue with anonymization of vertical cards where in some cases sensitive fields were not anonymized correctly
+- Fixed issue with anonymization of cards when document was scanned at a steep angle
+- Fixed issue with images when extension are enabled that resulted in an incorrect aspect ratio
+
 ## 2.11.1
 
 - Updated to [Android SDK v2.11.1](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.1) and [iOS SDK v2.11.1](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.1)

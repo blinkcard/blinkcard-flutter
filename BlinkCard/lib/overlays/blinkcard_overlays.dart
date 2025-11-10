@@ -41,6 +41,11 @@ class BlinkCardOverlaySettings extends OverlaySettings {
   ///  If null, default value will be used.
   String? scanningWrongSideMessage;
 
+  /// String: Instructions for the user when too much tilt is detected.
+  ///
+  /// If null, default value will be used.
+  String? keepCardParallelMessage;
+
   ///Defines whether button for presenting onboarding screens will be present on screen
   ///
   ///Default: true

@@ -107,6 +107,13 @@
             recognizer.screenAnalysisMatchLevel = (MBCMatchLevel)[(NSNumber *)screenAnalysisMatchLevel unsignedIntegerValue];
         }
     }
+    
+    {
+        id tiltDetectionLevel = [jsonRecognizer valueForKey:@"tiltDetectionLevel"];
+        if (tiltDetectionLevel != nil) {
+            recognizer.tiltDetectionLevel = (MBCDetectionLevel)[(NSNumber *)tiltDetectionLevel unsignedIntegerValue];
+        }
+    }
 
     return recognizer;
 }

@@ -20,6 +20,7 @@ BlinkCardOverlaySettings _$BlinkCardOverlaySettingsFromJson(
       ..errorMoveFarther = json['errorMoveFarther'] as String?
       ..errorCardTooCloseToEdge = json['errorCardTooCloseToEdge'] as String?
       ..scanningWrongSideMessage = json['scanningWrongSideMessage'] as String?
+      ..keepCardParallelMessage = json['keepCardParallelMessage'] as String?
       ..showOnboardingInfo = json['showOnboardingInfo'] as bool
       ..showIntroductionDialog = json['showIntroductionDialog'] as bool
       ..onboardingButtonTooltipDelay =
@@ -40,6 +41,7 @@ Map<String, dynamic> _$BlinkCardOverlaySettingsToJson(
   'errorMoveFarther': instance.errorMoveFarther,
   'errorCardTooCloseToEdge': instance.errorCardTooCloseToEdge,
   'scanningWrongSideMessage': instance.scanningWrongSideMessage,
+  'keepCardParallelMessage': instance.keepCardParallelMessage,
   'showOnboardingInfo': instance.showOnboardingInfo,
   'showIntroductionDialog': instance.showIntroductionDialog,
   'onboardingButtonTooltipDelay': instance.onboardingButtonTooltipDelay,

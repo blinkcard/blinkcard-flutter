@@ -1,5 +1,6 @@
 package com.microblink.blinkcard.flutter.recognizers.serialization;
 
+import com.microblink.blinkcard.entities.recognizers.blinkcard.DetectionLevel;
 import com.microblink.blinkcard.flutter.SerializationUtils;
 
 import com.microblink.blinkcard.entities.recognizers.blinkcard.BlinkCardAnonymizationMode;
@@ -60,5 +61,9 @@ public abstract class BlinkCardSerializationUtils {
 
         public static MatchLevel deserializeMatchLevel(JSONObject json, String name) {
             return MatchLevel.values()[json.optInt(name, 5)];
+    }
+
+    public static DetectionLevel deserializeDetectionLevel(JSONObject json, String name) {
+            return DetectionLevel.values()[json.optInt(name, 2)];
     }
 }
