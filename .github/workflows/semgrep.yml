@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature/MSDKS-2201-implement-semgrep
   pull_request:
     branches: [ "main" ]
   schedule:
